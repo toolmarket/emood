@@ -1,13 +1,16 @@
 Emood
 --------
 
-This is the readme file.
+Esto es un documento temporal con datos.
 
 
 # Create empty Virtualenv https://stackoverflow.com/questions/58000371/how-to-create-an-empty-python-virtual-environment
 # pip freeze > requirements.txt
 # pip install -r requirements.txt
 env\Scripts\activate.bat 
+
+
+pip3 install setuptools==45.0.0 # para Mac
 
 pip install requests pystray
 

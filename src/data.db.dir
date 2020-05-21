@@ -1,0 +1,8 @@
+'version', (0, 14)
+'machineId', (512, 66)
+'userId', (1024, 66)
+'company', (1536, 20)
+'department', (2048, 17)
+'show_smiles', (2560, 21)
+'questions_answered', (3072, 10)
+'unsentAnswers', (3584, 6)

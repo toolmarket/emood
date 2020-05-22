@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 # SETTINGS
-debug = True
 version = "0.22"
 
 # IMPORTS y Functions 
@@ -27,7 +26,8 @@ if sys.platform.startswith('win'):
   import win32api
   from winerror import ERROR_ALREADY_EXISTS
 else:
-  import fcntl  # MAC and UNIX
+  # import fcntl  # MAC and UNIX
+  pass
 
 import configparser # config.ini
 
@@ -358,6 +358,23 @@ def gui_generator(type=0,main_text="¿Cómo te sentís?",questionId="DefaultId",
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # PRINT SOME DATA
 print ( str(sys.argv) )
 
@@ -540,7 +557,6 @@ def show_window(icon, item):
 menu = pystray.Menu(pystray.MenuItem(text="Version", action=show_window, default=True),
                        pystray.MenuItem(text="Config", action=open_config),
                        pystray.MenuItem(text="Quit", action=quit_window)
-                    
                     )
 
 icon = pystray.Icon("E-Mood", image, "E-Mood Demo", menu)

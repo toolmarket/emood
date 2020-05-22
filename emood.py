@@ -516,6 +516,12 @@ def main_loop(icon):
 
 image = Image.open("src/logo.ico")
 
+
+def open_config(icon, item):
+  subprocess.run(['open', "config.ini"], check=True)
+
+
+
 def quit_window(icon, item):
   icon.visible = False
   icon.stop()
@@ -531,7 +537,10 @@ def show_window(icon, item):
   pass
 
 menu = pystray.Menu(pystray.MenuItem(text="Version", action=show_window, default=True),
-                       pystray.MenuItem(text="Quit", action=quit_window))
+                       pystray.MenuItem(text="Config", action=open_config),
+                       pystray.MenuItem(text="Quit", action=quit_window)
+                    
+                    )
 
 icon = pystray.Icon("E-Mood", image, "E-Mood Demo", menu)
 icon.run(main_loop)

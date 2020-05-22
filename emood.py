@@ -3,7 +3,7 @@
 
 # SETTINGS
 debug = True
-version = "0.21"
+version = "0.22"
 
 # IMPORTS y Functions 
 import random, string
@@ -518,7 +518,8 @@ image = Image.open("src/logo.ico")
 
 
 def open_config(icon, item):
-  subprocess.run(['open', "config.ini"], check=True)
+  #subprocess.run(['open', "config.ini"], check=True)
+  os.system("config.ini")
 
 
 

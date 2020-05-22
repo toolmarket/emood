@@ -27,7 +27,7 @@ if sys.platform == "win32":
 
 
 setup(  name = "emood",
-        version = "0.21",
+        version = "0.22",
         
         description = "Making RRHH great again!",
         options = {"build_exe": build_exe_options},

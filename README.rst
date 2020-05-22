@@ -9,8 +9,16 @@ Esto es un documento temporal con datos.
 # pip install -r requirements.txt
 env\Scripts\activate.bat 
 
-
+Problema con MAC, debe ser por esto:
+------------------------------------
 pip3 install setuptools==45.0.0 # para Mac
+https://pypi.org/project/mac-login-items/
+https://stackoverflow.com/questions/32078005/using-python-and-tkinter-to-make-a-simple-gui-i-get-unrecognized-selector-sent
+https://www.python.org/download/mac/tcltk/
+import pkg_resources
+print('Hello')
+
+
 
 pip install requests pystray
 

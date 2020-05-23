@@ -8,7 +8,7 @@ from PIL import Image
 import tkinter as tk
 from pathlib import Path
 if sys.platform.startswith('win'):
-	windows = True
+  windows = True
   import win32event
   import win32api
   from winerror import ERROR_ALREADY_EXISTS
@@ -24,24 +24,46 @@ frozen = False
 if getattr(sys, 'frozen', False): 
   frozen = True
 
+print ( str(sys.argv) )
+os.chdir( path  )
+cwd = os.getcwd()
+print("- CWD:      ",cwd)
+print("- PATH:     ", path )
+print("- __file__: ", __file__)
+
+
+def initialization():
+  """ STUFF THAT RUNS ONECE """
+  pass
+
+
+
+def main_process():
+  """ STUFF THAT RUNS INSIDE A LOOP """
+  pass
+
+
 
 
 def main_loop(icon):
-	pass
+  """ ICON LOOP """
+  icon.visible = True
+  while icon.visible: #O while true si queremos que sea invisible.
+    main_process() # All functions that go on loop.
+    time.sleep(1)
+    print("Main loop...")
+  return
 
 
 
 
 def open_config(icon, item):
-  #subprocess.run(['open', "config.ini"], check=True)
   os.system("config.ini")
-
 
 def quit_window(icon, item):
   icon.visible = False
   icon.stop()
-  sys.exit(1) # Exit solo no mataba los threads.  sys.exit(1)
-  exit()
+  return
 
 def show_window(icon, item):
   #window.after(0,window.deiconify)
@@ -50,6 +72,21 @@ def show_window(icon, item):
   # x.join(1800)
   # print("Show_window")
   pass	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 image = Image.open("src/logo.ico")
@@ -61,18 +98,11 @@ menu = pystray.Menu(pystray.MenuItem(text="Version", action=show_window, default
 icon = pystray.Icon("E-Mood", image, "E-Mood Demo", menu)
 icon.run(main_loop)
 
+print("Exit on Main")
+sys.exit()
 
 
 
 
 
-
-
-
-print ( str(sys.argv) )
-os.chdir( path  )
-cwd = os.getcwd()
-print("- CWD:      ",cwd)
-print("- PATH:     ", path )
-print("- __file__: ", __file__)
 

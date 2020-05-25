@@ -9,7 +9,7 @@ def gui_generator(type=0,main_text="¿Cómo te sentís?",questionId="DefaultId",
     #os.chdir( path ) # Cambiar el workingdir a dode esta este script(los threads se pierden un poco si no)
 
     window = tk.Tk()
-    window.title("E-Mood v. test" ) )
+    window.title("E-Mood v. test" )
     window_width = 600
     window_height = 300
     move_up = 100 # movemos la ventana unos pixeles para arriba.
@@ -26,10 +26,7 @@ def gui_generator(type=0,main_text="¿Cómo te sentís?",questionId="DefaultId",
         print(datos)
         window.destroy()
 
-        with shelve.open('src/data.db') as config: #
-            config['questionData'] = datos
-            # config['questionId'] = questionId
-            # config['questionType'] = questionType
+
 
         if datos == -1:
             gui_generator(1,"¿Por qué estas mal?",questionId,questionType,datos)
@@ -39,47 +36,6 @@ def gui_generator(type=0,main_text="¿Cómo te sentís?",questionId="DefaultId",
             gui_generator(1,"¿Queres contar por qué?",questionId,questionType,datos)
 
     def save_answer(data=0):
-        config = shelve.open('src/data.db') # Abrimos la base de datos para guardar la respuesta.
-
-        inputValue= textBox.get("1.0","end-1c").strip()
-        
-
-        answerTime = time.strftime("%Y-%m-%d %H:%M:%S")
-
-        questionId = config['questionId']
-        questionData = config['questionData']
-        questionType = config['questionType']
-
-        print(inputValue, questionId)
-        #config.setdefault('unsentAnswers', []) # list.append()
-        new_data = {
-            "answerTime": answerTime,
-            "questionTime": questionTime,
-            "userId": config["userId"],
-            "questionId": questionId,
-            "version": config["version"],
-            "company": config["company"],
-            "feedback": inputValue,
-            "answer": questionData,
-            "department": config["department"],
-            "questionType": questionType,
-        }
-        try:
-            unsentAnswers = config['unsentAnswers'] # Crear un nuevo shelve solo para esto. No utilizar la configuración.
-        except:
-            config['unsentAnswers'] = []
-            unsentAnswers = config['unsentAnswers']
-        unsentAnswers.append(new_data)
-        config['unsentAnswers'] = unsentAnswers
-        for answer in config['unsentAnswers']:
-            print ( answer )
-
-        config['questionData'] = ""
-        config['questionId'] = ""
-        config['questionType'] = ""
-        config.close() # Cerrando la base
-        # config.sync()
-        # Quizas la podemos guardar y meter en el loop siguiente de "envio de respuestas". Pero necesitamos un ID para la pregunta. 
         window.destroy()
     def input_keyup(data):
         print(data.keycode)

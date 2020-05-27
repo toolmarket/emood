@@ -186,7 +186,7 @@ def download_update(update_url="https://emood.com.ar/update.zip",update_dir="./"
         z = zipfile.ZipFile(io.BytesIO(r.content))
         z.extractall(update_dir)
     except Exception as e:
-      print("type error: " + str(e))
+      print( "type error: " + str(e) )
       return False
     return True
 

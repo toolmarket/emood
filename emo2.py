@@ -4,6 +4,7 @@ version = "0.22"
 
 # IMPORTS python -m pip install pillow tk image pywin32 pystray requests
 import random, string, os, sys, datetime, time, importlib, threading, zipfile, io, json, subprocess, configparser, uuid, requests, shelve, pystray
+import multiprocessing
 from PIL import Image  
 import tkinter as tk
 from pathlib import Path
@@ -16,6 +17,9 @@ else:
   import fcntl  # MAC and UNIX
   windows = False
 
+
+
+
 # GLOBALS
 # __file__, path, frozen, windows, 
 __file__ = os.path.abspath( sys.argv[0]) 
@@ -24,12 +28,8 @@ frozen = False
 if getattr(sys, 'frozen', False): 
   frozen = True
 
-print ( str(sys.argv) )
 os.chdir( path  )
 cwd = os.getcwd()
-print("- CWD:      ",cwd)
-print("- PATH:     ", path )
-print("- __file__: ", __file__)
 
 
 
@@ -169,7 +169,7 @@ def gui_generator(type=0,main_text="¿Cómo te sentís?",questionId="DefaultId",
     """ Creates the windows """
     config = shelve.open('src/data.db') 
     window = tk.Tk()
-    window.title("E-Mood v." + str( config["version"] ) )
+    window.title("E-Mood v." + str( version ) )
     window_width = 600
     window_height = 300
     move_up = 100 # movemos la ventana unos pixeles para arriba.
@@ -263,9 +263,15 @@ def gui_generator(type=0,main_text="¿Cómo te sentís?",questionId="DefaultId",
    
     if type == 0: # SHOW FACES
         tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background=background_color).grid(row=0,column=0,columnspan=9,pady=20)   # Helvetica
-        img1 = tk.PhotoImage(file="src/sad.png")
-        img2 = tk.PhotoImage(file="src/neutral.png")
-        img3 = tk.PhotoImage(file="src/smile.png")
+
+        try:
+          img1 = tk.PhotoImage(file="src/sad.png")
+          img2 = tk.PhotoImage(file="src/neutral.png")
+          img3 = tk.PhotoImage(file="src/smile.png")
+        except: # Quizas para MAC o algo
+          img1 = tk.PhotoImage(file="src/sad.gif")
+          img2 = tk.PhotoImage(file="src/neutral.gif")
+          img3 = tk.PhotoImage(file="src/smile.gif")
 
         tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = img1, command=lambda: btn_next(-1) ).grid(row=2,column=1,pady=20,padx=20)
         tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = img2, command=lambda: btn_next(0) ).grid(row=2,column=3,pady=20)
@@ -429,104 +435,56 @@ def quit_window(icon, item):
 
 def show_window(icon, item):
   #window.after(0,window.deiconify)
-  x = threading.Thread(target=gui_generator, args=(3,"E-Mood V.{}".format(version) ), daemon=False)
-  x.start()
-  x.join()
+  p = multiprocessing.Process(target=gui_generator, args=(3,"E-Mood V.{}".format(version) ) )
+  p.start()
+  p.join(10)
+  p.terminate() # Lo cierra despues del join.
 
 def mac_trials(icon, item):
-  print("NO THREADS T1")
-  try:
-    gui_tests(0,"No thread 0.")
-  except Exception as e:
-    print( "type error: " + str(e) )
-  print("NO THREADS T2")
-  try:
-    gui_tests(1,"No thread 1.")
-  except Exception as e:
-    print( "type error: " + str(e) )
-  print("NO THREADS T3")
-  try:
-    gui_tests(2,"No thread 2.")
-  except Exception as e:
-    print( "type error: " + str(e) ) 
-  print("NO THREADS T4")
-  try:
-    gui_tests(3,"No thread 3.")
-  except Exception as e:
-    print( "type error: " + str(e) )
-  print("NO THREADS T5")
-  try:
-      gui_tests(4,"No thread 4. JPG")
-  except Exception as e:
-    print( "type error: " + str(e) )  
-
-
-
-def mac_trials2(icon, item):
-  print("THREADS T1")
-  try:
-    x = threading.Thread(target=gui_tests, args=(0,"Thread test. Daemon False" ), daemon=False)
-    x.start()
-    x.join()
-  except Exception as e:
-    print( "type error: " + str(e) )  
-
-  print("THREADS T2")
-  try:
-    x = threading.Thread(target=gui_tests, args=(1,"Thread test. Daemon False" ), daemon=False)
-    x.start()
-    x.join()
-  except Exception as e:
-    print( "type error: " + str(e) )  
-
-  print("THREADS T3")
-  try:
-    x = threading.Thread(target=gui_tests, args=(4,"Thread test. Daemon False JPG" ), daemon=False)
-    x.start()
-    x.join()
-  except Exception as e:
-    print( "type error: " + str(e) )  
-  print("THREADS T4")
-  try:
-    x = threading.Thread(target=gui_tests, args=(4,"Thread test. Daemon JPG True" ), daemon=True)
-    x.start()
-    x.join()
-  except Exception as e:
-    print( "type error: " + str(e) )  
-
-  print("THREADS T4")
-  try:
-    x = threading.Thread(target=gui_tests, args=(0,"Last Thread test. Daemon True" ), daemon=True)
-    x.start()
-    x.join()
-  except Exception as e:
-    print( "type error: " + str(e) )  
-
-
-
+  p = multiprocessing.Process(target=gui_generator, args=(0,"¿Te sentis bien Steve?" ) )
+  p.start()
+  p.join(10)
+  p.terminate() # Lo cierra despues del join.
 # ACTIONS
 
 
+if __name__ == '__main__':
+
+  print("- CWD:      ",cwd)
+  print("- PATH:     ", path )
+  print("- __file__: ", __file__)
+  print ( str(sys.argv) )
+
+  multiprocessing.freeze_support() # Para multiprocesing
+  multiprocessing.set_start_method('spawn') # fork crea una copia de memoria(?aprox)
+
+  check_single_instance() # If not single instance exit.
+  initialization() # on startup.
+
+  image = Image.open("src/logo.ico")
+  menu = pystray.Menu(pystray.MenuItem(text="Version", action=show_window, default=True),
+                        pystray.MenuItem(text="Config", action=open_config),
+                        pystray.MenuItem(text="Mac-Tests", action=mac_trials),
+                        pystray.MenuItem(text="Quit", action=quit_window)
+                      )
+
+  icon = pystray.Icon("E-Mood", image, "E-Mood Demo", menu)
+  icon.run( main_loop )
+
+  print("Exit on Main")
+  sys.exit()
 
 
-check_single_instance() # If not single instance exit.
-initialization() # on startup.
+# from multiprocessing import Process, freeze_support, set_start_method
 
+# def foo():
+#     print('hello')
 
-image = Image.open("src/logo.ico")
-menu = pystray.Menu(pystray.MenuItem(text="Version", action=show_window, default=True),
-                       pystray.MenuItem(text="Config", action=open_config),
-                       pystray.MenuItem(text="Mac-Tests", action=mac_trials),
-                       pystray.MenuItem(text="Mac-Tests Threads", action=mac_trials2),
-                       pystray.MenuItem(text="Quit", action=quit_window)
-                    )
-
-icon = pystray.Icon("E-Mood", image, "E-Mood Demo", menu)
-icon.run(main_loop)
-
-print("Exit on Main")
-sys.exit()
-
+# if __name__ == '__main__':
+#     multiprocessing.freeze_support()
+#     multiprocessing.set_start_method('spawn')
+#     p = multiprocessing.Process(target=foo)
+#     p.start()
 
 
 

@@ -1,4 +1,6 @@
 src/*.bak
 src/*.dat
 src/*.dir
+src/*.db
+*.db
 __pycache__*

@@ -60,7 +60,7 @@ def gui_generator(type=0,main_text="¿Cómo te sentís?",questionId="DefaultId",
 
 
     if type == 0: # SHOW FACES
-        tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background=background_color).grid(row=0,column=0,columnspan=9,pady=20)   # Helvetica
+        tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 30', background=background_color).grid(row=1, column=0, columnspan=9,pady=25)   # Helvetica
         if windows:
             img1 = tk.PhotoImage(file="src/sad.png")
             img2 = tk.PhotoImage(file="src/neutral.png")
@@ -74,23 +74,22 @@ def gui_generator(type=0,main_text="¿Cómo te sentís?",questionId="DefaultId",
             text='', 
             width=120,
             height=120,
-            cursor="hand2",
+            cursor="arrow",
             border=0, 
-            highlightbackground='#091337',
-            highlightcolor="#091337", 
-            background=background_color,
-            fg = '#091337',
+            highlightbackground="#091337",
+            highlightcolor='#091337', 
+            background='#091337',
             image = img1, 
-            command=lambda: btn_next(-1) ).grid(row=2,column=1,pady=20,padx=20)
-        tk.Button(window, text='', width=120,height=120,cursor="hand2",border=0,highlightbackground='#091337', background=background_color,image = img2, command=lambda: btn_next(0) ).grid(row=2,column=3,pady=20)
-        tk.Button(window, text='', width=120,height=120,cursor="hand2",border=0,highlightbackground='#091337', background=background_color,image = img3, command=lambda: btn_next(1) ).grid(row=2,column=6,pady=20,padx=20)
+            command=lambda: btn_next(-1) ).grid(row=2,column=1,pady=20,padx=50)
+        tk.Button(window, text='', width=120,height=120,cursor="arrow",border=0,highlightbackground='#091337', background=background_color,image = img2, command=lambda: btn_next(0) ).grid(row=2,column=3,pady=20)
+        tk.Button(window, text='', width=120,height=120,cursor="arrow",border=0,highlightbackground='#091337', background=background_color,image = img3, command=lambda: btn_next(1) ).grid(row=2,column=6,pady=20,padx=50)
 
     if type == 1: # INPUT TEXT
-        tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background=background_color).grid(row=0,column=0,columnspan=9,pady=20)   # Helvetica
-        textBox = tk.Text(window, width=50,height=6)
-        textBox.grid(row=2,column=0,columnspan=9,pady=20)
-        send_button = tk.Button(window, text='No', font='Sans 20', width=20,height=6,cursor="hand2",border=0, command=lambda: save_answer() )
-        send_button.grid(row=3,column=3,pady=20,padx=20)
+        tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 25', background=background_color).grid(row=0,column=0,columnspan=9,pady=15)   # Helvetica
+        textBox = tk.Text(window, width=60,height=6)
+        textBox.grid(row=2,column=0,columnspan=9,pady=15)
+        send_button = tk.Button(window, text='No', font='Sans 20', width=15,height=1,cursor="hand2",border=0, command=lambda: save_answer() )
+        send_button.grid(row=3,column=3,pady=10,padx=15)
         window.bind_all('<KeyRelease>', input_keyup)
         window.focus_force() # le da foco a la ventana
         # window.after(1, lambda: window.focus_force()) 
@@ -143,4 +142,4 @@ def test(texto_largo):
 
 #test("adfa dfas dfasd fasd fasdf ")
 
-gui_generator(0,"Emood test asdfasdf")
+gui_generator(1,"CONTANOS QUÉ ES LO QUE SUCEDE")

@@ -17,8 +17,11 @@ else:
   import fcntl  # MAC and UNIX
   windows = False
 
+import fun
 
 
+
+exit()
 
 # GLOBALS
 # __file__, path, frozen, windows, 

@@ -1,44 +1,29 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-version = "0.22"
+from config import *
+import fun, gui
 
-# IMPORTS python -m pip install pillow tk image pywin32 pystray requests
-import random, string, os, sys, datetime, time, importlib, threading, zipfile, io, json, subprocess, configparser, uuid, requests, shelve, pystray
-import multiprocessing
-from PIL import Image  
-import tkinter as tk
-from pathlib import Path
-if sys.platform.startswith('win'):
-  windows = True
-  import win32event
-  import win32api
-  from winerror import ERROR_ALREADY_EXISTS
-else:
-  import fcntl  # MAC and UNIX
-  windows = False
 
-import fun
-
+gui.smiles()
 
 
 exit()
 
-# GLOBALS
-# __file__, path, frozen, windows, 
-__file__ = os.path.abspath( sys.argv[0]) 
-path = os.path.dirname( os.path.abspath(sys.argv[0])) 
-frozen = False
-if getattr(sys, 'frozen', False): 
-  frozen = True
 
-os.chdir( path  )
-cwd = os.getcwd()
+
+
+
+
+
+
+
 
 
 
 
 def initialization():
   """ STUFF THAT RUNS ONECE ON STARTUP"""
+  # QUIZAS PODRIA PONER TODO ESTO EN CONFIG.PY
   
   pass
 
@@ -58,40 +43,6 @@ def main_process():
     lastTick = time.time()
 
   pass
-
-
-def gui_tests(type=0,main_text="wolololo",questionId="DefaultId",questionType="Default",data=0):
-    window = tk.Tk()
-    os.chdir( path  )
-    window.title("E-Mood v." )
-    window_width = 600
-    window_height = 300
-    move_up = 100 # movemos la ventana unos pixeles para arriba.
-    background_color = '#091337'
-    window.configure(background=background_color)
-    window.overrideredirect(1) # Remove border
-    window.grid_rowconfigure(3, weight=1)
-    window.grid_columnconfigure(3, weight=1)
-    screen_width = window.winfo_screenwidth()
-    screen_height = window.winfo_screenheight()  
-    window.geometry("%dx%d+%d+%d" % (window_width, window_height,screen_width/2-window_width/2, screen_height/2-window_height/2 - move_up)) 
-    try:
-      window.iconbitmap('src/logo.ico')
-    except:
-      print("Icon bitmap error.")
-    window.resizable(0, 0) # Can't Resize
-    window.lift(aboveThis=window) 
-    window.wm_attributes("-topmost", 1) # always on top
-    tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background=background_color).grid(row=0,column=0,columnspan=9,pady=20)   # Helvetica
-    print("PNG not working.")
-    img1 = tk.PhotoImage(file="src/sad.gif")
-    img2 = tk.PhotoImage(file="src/neutral.gif")
-    img3 = tk.PhotoImage(file="src/smile.gif")          
-    tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = img1, command=window.destroy ).grid(row=2,column=1,pady=20,padx=20)
-    tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = img2, command=window.destroy ).grid(row=2,column=3,pady=20)
-    tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = img3, command=window.destroy ).grid(row=2,column=6,pady=20,padx=20)
-    window.focus_force() # le da foco a la ventana
-    window.mainloop()
 
 
 
@@ -167,240 +118,6 @@ def create_machineId():
 
 
 
-# Tkinter GUI
-def gui_generator(type=0,main_text="¿Cómo te sentís?",questionId="DefaultId",questionType="Default",data=0):
-    """ Creates the windows """
-    config = shelve.open('src/data.db') 
-    window = tk.Tk()
-    window.title("E-Mood v." + str( version ) )
-    window_width = 600
-    window_height = 300
-    move_up = 100 # movemos la ventana unos pixeles para arriba.
-    background_color = '#091337'
-    window.configure(background=background_color)
-    window.overrideredirect(1) # Remove border
-    window.grid_rowconfigure(3, weight=1)
-    window.grid_columnconfigure(3, weight=1)
-    questionTime = time.strftime("%Y-%m-%d %H:%M:%S")
-
-    config.close()
-
-    # Botones de Acciones dentro del GUI. 
-    def btn_next(datos=0):
-        print(datos)
-        window.destroy()
-
-        with shelve.open('src/data.db') as config: #
-            config['questionData'] = datos
-            # config['questionId'] = questionId
-            # config['questionType'] = questionType
-
-        if datos == -1:
-            gui_generator(1,"¿Por qué estas mal?",questionId,questionType,datos)
-        if datos == 0:
-            gui_generator(1,"¿Queres dejar un Comentario?,",questionId,questionType,datos)
-        if datos == 1:
-            gui_generator(1,"¿Queres contar por qué?",questionId,questionType,datos)
-
-    def save_answer(data=0):
-        config = shelve.open('src/data.db') # Abrimos la base de datos para guardar la respuesta.
-
-        inputValue= textBox.get("1.0","end-1c").strip()
-        
-
-        answerTime = time.strftime("%Y-%m-%d %H:%M:%S")
-
-        questionId = config['questionId']
-        questionData = config['questionData']
-        questionType = config['questionType']
-
-        print(inputValue, questionId)
-        #config.setdefault('unsentAnswers', []) # list.append()
-        new_data = {
-            "answerTime": answerTime,
-            "questionTime": questionTime,
-            "userId": config["userId"],
-            "questionId": questionId,
-            "version": config["version"],
-            "company": config["company"],
-            "feedback": inputValue,
-            "answer": questionData,
-            "department": config["department"],
-            "questionType": questionType,
-        }
-        try:
-            unsentAnswers = config['unsentAnswers'] # Crear un nuevo shelve solo para esto. No utilizar la configuración.
-        except:
-            config['unsentAnswers'] = []
-            unsentAnswers = config['unsentAnswers']
-        unsentAnswers.append(new_data)
-        config['unsentAnswers'] = unsentAnswers
-        for answer in config['unsentAnswers']:
-            print ( answer )
-
-        config['questionData'] = ""
-        config['questionId'] = ""
-        config['questionType'] = ""
-        config.close() # Cerrando la base
-        # config.sync()
-        # Quizas la podemos guardar y meter en el loop siguiente de "envio de respuestas". Pero necesitamos un ID para la pregunta. 
-        window.destroy()
-    def input_keyup(data):
-        print(data.keycode)
-        inputValue= textBox.get("1.0","end-1c").strip()
-        if len(inputValue) > 1:
-            send_button.config(text='Enviar')
-        else:
-            send_button.config(text='No')
-        if(data.keycode == 13): # Enter ahora envia el formulario.
-            save_answer()
-
-
-    screen_width = window.winfo_screenwidth()
-    screen_height = window.winfo_screenheight()  
-    window.geometry("%dx%d+%d+%d" % (window_width, window_height,screen_width/2-window_width/2, screen_height/2-window_height/2 - move_up)) 
-    # https://www.tutorialspoint.com/python/tk_grid.htm  # Tutorial de Grid
-    # prog_call = sys.argv[0] # los argumentos
-    # prog_location = os.path.split(prog_call)[0]
-    # photo_location = os.path.join(prog_location,"src/happy.png")
-   
-    if type == 0: # SHOW FACES
-        tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background=background_color).grid(row=0,column=0,columnspan=9,pady=20)   # Helvetica
-
-        try:
-          img1 = tk.PhotoImage(file="src/sad.png")
-          img2 = tk.PhotoImage(file="src/neutral.png")
-          img3 = tk.PhotoImage(file="src/smile.png")
-        except: # Quizas para MAC o algo
-          img1 = tk.PhotoImage(file="src/sad.gif")
-          img2 = tk.PhotoImage(file="src/neutral.gif")
-          img3 = tk.PhotoImage(file="src/smile.gif")
-
-        tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = img1, command=lambda: btn_next(-1) ).grid(row=2,column=1,pady=20,padx=20)
-        tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = img2, command=lambda: btn_next(0) ).grid(row=2,column=3,pady=20)
-        tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = img3, command=lambda: btn_next(1) ).grid(row=2,column=6,pady=20,padx=20)
-
-    if type == 1: # INPUT TEXT
-        tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background=background_color).grid(row=0,column=0,columnspan=9,pady=20)   # Helvetica
-        textBox = tk.Text(window, width=50,height=6)
-        textBox.grid(row=2,column=0,columnspan=9,pady=20)
-        send_button = tk.Button(window, text='No', font='Sans 20', width=20,height=6,cursor="hand2",border=0, command=lambda: save_answer() )
-        send_button.grid(row=3,column=3,pady=20,padx=20)
-        window.bind_all('<KeyRelease>', input_keyup)
-        window.focus_force() # le da foco a la ventana
-        # window.after(1, lambda: window.focus_force()) 
-    # window.wm_attributes("-transparentcolor", 'grey') hace que el gris sea transparente y crea un agujero en la imagen.
-
-    if type == 2: # CUSTOM TEXT YES NO
-        tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 16', background=background_color,wraplength=500,justify="center").grid(row=0,column=0,rowspan=2,columnspan=9,pady=20,padx=20)   # Helvetica
-        tk.Button(window, text='Aceptar', font='Sans 20', width=10,height=1,cursor="hand2",border=0, command=window.destroy ).grid(row=3,column=4,pady=20,padx=20)
-        tk.Button(window, text='Cancelar', font='Sans 20', width=10,height=1,cursor="hand2",border=0, command=window.destroy ).grid(row=3,column=2,pady=20,padx=20)
-        window.focus_force() # le da foco a la ventana
-    if type == 3: # CUSTOM CLOSE
-        tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 16', background=background_color,wraplength=500,justify="center").grid(row=0,column=0,rowspan=2,columnspan=9,pady=20,padx=20)   # Helvetica
-        tk.Button(window, text='Ok', font='Sans 20', width=10,height=1,cursor="hand2",border=0, command=window.destroy ).grid(row=3,column=3,pady=20,padx=20)
-       # tk.Button(window, text='Cancelar', font='Sans 20', width=10,height=1,cursor="hand2",border=0, command=window.destroy ).grid(row=3,column=2,pady=20,padx=20)
-        window.focus_force() # le da foco a la ventana
-
-
-
-    window.iconbitmap('src/logo.ico')
-    window.resizable(0, 0) # Can't Resize
-    window.lift(aboveThis=window) 
-    # window.wm_attributes("-alpha",0.3) # -notify https://wiki.tcl-lang.org/page/wm+attributes
-    window.wm_attributes("-topmost", 1) # always on top
-    
-    window.mainloop() #bloquea la ejecución del script.
-
-
-
-
-
-
-def gui_tests2(type=0,main_text="wolololo",questionId="DefaultId",questionType="Default",data=0):
-    window = tk.Tk()
-    os.chdir( path  )
-    window.title("E-Mood v." + str( version ) )
-    window_width = 600
-    window_height = 300
-    move_up = 100 # movemos la ventana unos pixeles para arriba.
-    background_color = '#091337'
-    window.configure(background=background_color)
-    window.overrideredirect(1) # Remove border
-    window.grid_rowconfigure(3, weight=1)
-    window.grid_columnconfigure(3, weight=1)
-    screen_width = window.winfo_screenwidth()
-    screen_height = window.winfo_screenheight()  
-    window.geometry("%dx%d+%d+%d" % (window_width, window_height,screen_width/2-window_width/2, screen_height/2-window_height/2 - move_up)) 
-    try:
-      window.iconbitmap('src/logo.ico')
-    except:
-      print("Icon bitmap error.")
-    window.resizable(0, 0) # Can't Resize
-    window.lift(aboveThis=window) 
-    window.wm_attributes("-topmost", 1) # always on top
-    
-
-    if type == 0: # SHOW FACES
-        tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background=background_color).grid(row=0,column=0,columnspan=9,pady=20)   # Helvetica
-        try:
-          img1 = tk.PhotoImage(file="src/sad.png")
-          img2 = tk.PhotoImage(file="src/neutral.png")
-          img3 = tk.PhotoImage(file="src/smile.png")
-        except:
-          print("PNG not working.")
-          img1 = tk.PhotoImage(file="src/sad.gif")
-          img2 = tk.PhotoImage(file="src/neutral.gif")
-          img3 = tk.PhotoImage(file="src/smile.gif")          
-
-        tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = img1, command=window.destroy ).grid(row=2,column=1,pady=20,padx=20)
-        tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = img2, command=window.destroy ).grid(row=2,column=3,pady=20)
-        tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = img3, command=window.destroy ).grid(row=2,column=6,pady=20,padx=20)
-
-    if type == 4: # SHOW jpg
-        tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background=background_color).grid(row=0,column=0,columnspan=9,pady=20)   # Helvetica
-        try:
-          img1 = tk.PhotoImage(file="src/sad.jpg")
-          img2 = tk.PhotoImage(file="src/neutral.jpg")
-          img3 = tk.PhotoImage(file="src/smile.jpg")  
-        except:
-          print("JPG not working.")
-          img1 = tk.PhotoImage(file="src/sad.gif")
-          img2 = tk.PhotoImage(file="src/neutral.gif")
-          img3 = tk.PhotoImage(file="src/smile.gif")                
-        tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = img1, command=window.destroy ).grid(row=2,column=1,pady=20,padx=20)
-        tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = img2, command=window.destroy ).grid(row=2,column=3,pady=20)
-        tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = img3, command=window.destroy ).grid(row=2,column=6,pady=20,padx=20)
-
-
-
-    if type == 1: # INPUT TEXT
-        tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background=background_color).grid(row=0,column=0,columnspan=9,pady=20)   # Helvetica
-        textBox = tk.Text(window, width=50,height=6)
-        textBox.grid(row=2,column=0,columnspan=9,pady=20)
-        send_button = tk.Button(window, text='No', font='Sans 20', width=20,height=6,cursor="hand2",border=0, command=window.destroy )
-        send_button.grid(row=3,column=3,pady=20,padx=20)
-        window.focus_force() # le da foco a la ventana
-        # window.after(1, lambda: window.focus_force()) 
-    # window.wm_attributes("-transparentcolor", 'grey') hace que el gris sea transparente y crea un agujero en la imagen.
-
-    if type == 2: # CUSTOM TEXT YES NO
-        tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 16', background=background_color,wraplength=500,justify="center").grid(row=0,column=0,rowspan=2,columnspan=9,pady=20,padx=20)   # Helvetica
-        tk.Button(window, text='Aceptar', font='Sans 20', width=10,height=1,cursor="hand2",border=0, command=window.destroy ).grid(row=3,column=4,pady=20,padx=20)
-        tk.Button(window, text='Cancelar', font='Sans 20', width=10,height=1,cursor="hand2",border=0, command=window.destroy ).grid(row=3,column=2,pady=20,padx=20)
-        window.focus_force() # le da foco a la ventana
-    if type == 3: # CUSTOM CLOSE
-        tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 16', background=background_color,wraplength=500,justify="center").grid(row=0,column=0,rowspan=2,columnspan=9,pady=20,padx=20)   # Helvetica
-        tk.Button(window, text='Ok', font='Sans 20', width=10,height=1,cursor="hand2",border=0, command=window.destroy ).grid(row=3,column=3,pady=20,padx=20)
-       # tk.Button(window, text='Cancelar', font='Sans 20', width=10,height=1,cursor="hand2",border=0, command=window.destroy ).grid(row=3,column=2,pady=20,padx=20)
-        window.focus_force() # le da foco a la ventana
-    
-    window.mainloop()
-
-
-
-
-
 
 
 
@@ -429,7 +146,24 @@ def gui_tests2(type=0,main_text="wolololo",questionId="DefaultId",questionType="
 # MENU ITEMS
 
 def open_config(icon, item):
-  os.system("config.ini")
+  if windows:
+    os.system("config.ini")
+    # os.startfile("https://google.com.ar/") # si quiero abrir una URL
+  else:
+    try:
+      subprocess.Popen(['open', "config.ini"])
+    except:
+      subprocess.Popen(['xdg-open', "config.ini"])
+
+def open_website( icon, item ):
+  url = "https://emood.com.ar/"
+  if windows:
+    os.startfile(url)
+  else:
+    try:
+      subprocess.Popen(['open', url])
+    except:
+      subprocess.Popen(['xdg-open', url])
 
 def quit_window(icon, item):
   icon.visible = False
@@ -440,7 +174,7 @@ def show_window(icon, item):
   #window.after(0,window.deiconify)
   p = multiprocessing.Process(target=gui_generator, args=(3,"E-Mood V.{}".format(version) ) )
   p.start()
-  p.join(10)
+  p.join(20)
   p.terminate() # Lo cierra despues del join.
 
 def mac_trials(icon, item):
@@ -448,15 +182,19 @@ def mac_trials(icon, item):
   p.start()
   p.join(10)
   p.terminate() # Lo cierra despues del join.
+
+
+
+
 # ACTIONS
-
-
 if __name__ == '__main__':
-
+  # PRINT SOME DATA
+  print(python_path)
+  print ( str(sys.argv) )
   print("- CWD:      ",cwd)
   print("- PATH:     ", path )
   print("- __file__: ", __file__)
-  print ( str(sys.argv) )
+
 
   multiprocessing.freeze_support() # Para multiprocesing
   multiprocessing.set_start_method('spawn') # fork crea una copia de memoria(?aprox)
@@ -467,7 +205,7 @@ if __name__ == '__main__':
   image = Image.open("src/logo.ico")
   menu = pystray.Menu(pystray.MenuItem(text="Version", action=show_window, default=True),
                         pystray.MenuItem(text="Config", action=open_config),
-                        pystray.MenuItem(text="Mac-Tests", action=mac_trials),
+                        pystray.MenuItem(text="Website", action=open_website),
                         pystray.MenuItem(text="Quit", action=quit_window)
                       )
 

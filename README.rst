@@ -21,6 +21,10 @@ http://izpack.org/downloads/
 https://jrsoftware.org/isdl.php
 
 
+REMEMBER
+--------
+- Users will have an INBOX on the DB, where admins can queue up actions. 
+
 -------------------------------------------------------
 
 # Create empty Virtualenv https://stackoverflow.com/questions/58000371/how-to-create-an-empty-python-virtual-environment

@@ -1,18 +1,21 @@
 # The purpose of this file to hold everything related to creating and showin GUIs
 from config import *
 
+# LOCAL GLOBALS
+background_color = '#091337'
+window_width = 600
+window_height = 300
+move_up = 100 # movemos la ventana unos pixeles para arriba.
+
 def configure_window(window_type="default"):
-    window = tk.Tk()
+    """ DEFAULT WINDOW TEMPLATE """
     os.chdir( path  )
+    window = tk.Tk()
     window.title("E-Mood v." + version )
-    background_color = '#091337'
-    window_width = 600
-    window_height = 300
-    move_up = 100 # movemos la ventana unos pixeles para arriba.
     window.configure(background=background_color)
     window.overrideredirect(1) # Remove border
-    window.grid_rowconfigure(3, weight=1)
-    window.grid_columnconfigure(3, weight=1)
+    window.grid_rowconfigure(12, weight=1)
+    window.grid_columnconfigure(12, weight=1)
     screen_width = window.winfo_screenwidth()
     screen_height = window.winfo_screenheight()  
     window.geometry("%dx%d+%d+%d" % (window_width, window_height,screen_width/2-window_width/2, screen_height/2-window_height/2 - move_up)) 
@@ -23,44 +26,70 @@ def configure_window(window_type="default"):
     window.focus_force() # le da foco a la ventana   
     return window
 
+def clear_grid(window):
+    """ Clear everything in Grid"""
+    for label in window.grid_slaves():
+        # if int(label.grid_info()["row"]) > 6:
+        label.grid_forget()    
 
 
-def smiles(main_text="Default Text"):
+def smiles(main_text="Default Text sdafasdfasdf"):
+    """ CUSTOM WINDOW CREATION """
     # SET UP WINDOW.
     window = configure_window()
-    
-    background_color = '#091337' # Background buttons
+
     sad_img = tk.PhotoImage(file="src/sad.png")
     neutral_img = tk.PhotoImage(file="src/neutral.png")
     smile_img = tk.PhotoImage(file="src/smile.png")          
-    
 
     #  First Step
     def show_first():
-        main_title = tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background=background_color)
-        main_title.grid(row=0,column=0,columnspan=9,pady=20)
+        background_color = "#FF00FF"
+        main_title = tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background="#FF00FF") # , anchor="center"
+        main_title.grid(row=1,column=1,columnspan=12,pady=20,stick="WENS")
 
-        sad_face = tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = sad_img, command=next )
-        sad_face.grid(row=2,column=1,pady=20,padx=20)
-        
-        neutral_face = tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = neutral_img, command=window.destroy )
-        neutral_face.grid(row=2,column=3,pady=20)
+        sad_face = tk.Button(window, text=' ', width=150,height=120,cursor="hand2",border=0,background=background_color,image = sad_img,
+         command=lambda: show_input("¿Quieres contarnos por que?",-1) )
+        sad_face.grid(row=2,columnspan=1,column=4,pady=20,padx=0,stick="WENS") # ,padx=20,pady=20
 
-        smile_face = tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = smile_img, command=window.destroy )
-        smile_face.grid(row=2,column=6,pady=20,padx=20)
+        neutral_face = tk.Button(window, text=' ', width=150,height=120,cursor="hand2",border=0,background="#220022",image = neutral_img,
+         command=window.destroy )
+        neutral_face.grid(row=2,columnspan=1,column=8,pady=20,padx=65,stick="WENS")
+
+        smile_face = tk.Button(window, text=' ', width=150,height=120,cursor="hand2",border=0,background="#FF0000",image = smile_img,
+         command=window.destroy )
+        smile_face.grid(row=2,columnspan=1,column=9,pady=20,padx=0,stick="WENS")
 
     # Seccond Step
-    def next():
+    def show_input(main_text="default text",score=0):
+        clear_grid(window)
+
+        main_title = tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background="#FF00FF") # , anchor="center"
+        main_title.grid(row=1,column=1,columnspan=12,pady=20,stick="WENS")
+
+        textBox = tk.Text(window, width=50,height=6)
+        textBox.grid(row=2,column=0,columnspan=1,padx=0,pady=0,stick="WENS")
+
+        ok_button = tk.Button(window, text='Cancelar', font='Sans 20', width=10,height=1,cursor="hand2",border=0,
+         command=window.destroy )
+        ok_button.grid(row=4,column=8,pady=20,columnspan=1,padx=70)
+        
+        no_button = tk.Button(window, text='Enviar', font='Sans 20', width=10,height=1,cursor="hand2",border=0,
+         command=window.destroy )
+        no_button.grid(row=4,column=12,pady=20,columnspan=1,padx=20)
+
+        ### send answer and close.
+
         # find grid "hide all"
         #main_title.configure(text='OUCH!')
         #sad_face.grid_remove()
         # grid()
-        pass
 
 
 
 
     show_first()
+    window.update()
     window.mainloop()
 
 

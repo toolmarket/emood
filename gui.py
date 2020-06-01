@@ -36,7 +36,50 @@ def clear_grid(window):
         # grid()
         label.grid_forget()    
 
+def save_answer(data=0):
+    pass
+    # config = shelve.open('src/data.db') # Abrimos la base de datos para guardar la respuesta.
 
+    # inputValue= textBox.get("1.0","end-1c").strip()
+    
+
+    # answerTime = time.strftime("%Y-%m-%d %H:%M:%S")
+
+    # questionId = config['questionId']
+    # questionData = config['questionData']
+    # questionType = config['questionType']
+
+    # print(inputValue, questionId)
+    # #config.setdefault('unsentAnswers', []) # list.append()
+    # new_data = {
+    #     "answerTime": answerTime,
+    #     "questionTime": questionTime,
+    #     "userId": config["userId"],
+    #     "questionId": questionId,
+    #     "version": config["version"],
+    #     "company": config["company"],
+    #     "feedback": inputValue,
+    #     "answer": questionData,
+    #     "department": config["department"],
+    #     "questionType": questionType,
+    # }
+    # try:
+    #     unsentAnswers = config['unsentAnswers'] # Crear un nuevo shelve solo para esto. No utilizar la configuración.
+    # except:
+    #     config['unsentAnswers'] = []
+    #     unsentAnswers = config['unsentAnswers']
+    # unsentAnswers.append(new_data)
+    # config['unsentAnswers'] = unsentAnswers
+    # for answer in config['unsentAnswers']:
+    #     print ( answer )
+
+    # config['questionData'] = ""
+    # config['questionId'] = ""
+    # config['questionType'] = ""
+    # config.close() # Cerrando la base
+    # # config.sync()
+    # # Quizas la podemos guardar y meter en el loop siguiente de "envio de respuestas". Pero necesitamos un ID para la pregunta. 
+    # window.destroy()
 
 
 
@@ -57,7 +100,19 @@ def smiles(main_text="Default Text sdafasdfasdf"):
 
     sad_img = tk.PhotoImage(file="src/sad.png")
     neutral_img = tk.PhotoImage(file="src/neutral.png")
-    smile_img = tk.PhotoImage(file="src/smile.png")          
+    smile_img = tk.PhotoImage(file="src/smile.png")      
+
+    def input_keyup(data):
+        print(data.keycode)
+        inputValue= textBox.get("1.0","end-1c").strip()
+        if len(inputValue) > 1:
+            # send_button.config(text='Enviar')
+            pass
+        else:
+            # send_button.config(text='No')
+            pass
+        if(data.keycode == 13): # Enter ahora envia el formulario.
+            save_answer()
 
     #  First Step
     def show_first():
@@ -70,16 +125,17 @@ def smiles(main_text="Default Text sdafasdfasdf"):
         sad_face.grid(row=2,columnspan=1,column=4,pady=20,padx=5,stick="WENS") # ,padx=20,pady=20
 
         neutral_face = tk.Button(window, text=' ', width=150,height=120,cursor="hand2",border=0,background=background_color,image = neutral_img,
-         command=window.destroy )
+         command=lambda: show_input("¿Queres contarnos algo?",0) )
         neutral_face.grid(row=2,columnspan=1,column=8,pady=20,padx=65,stick="WENS")
 
         smile_face = tk.Button(window, text=' ', width=150,height=120,cursor="hand2",border=0,background=background_color,image = smile_img,
-         command=window.destroy )
+         command=lambda: show_input("¿Queres contarnos por que?",1) )
         smile_face.grid(row=2,columnspan=1,column=9,pady=20,padx=0,stick="WENS")
 
     # Second Step
     def show_input(main_text="default text",score=0):
         clear_grid(window)
+        # score var
 
         main_title = tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background=background_color) # , anchor="center"
         main_title.grid(row=0,column=1,columnspan=12,pady=20,stick="WENS")
@@ -94,6 +150,9 @@ def smiles(main_text="Default Text sdafasdfasdf"):
         no_button = tk.Button(window, text='Enviar', font='Sans 20', width=10,height=1,cursor="hand2",border=0,
          command=window.destroy )
         no_button.grid(row=4,column=12,pady=20,columnspan=1,padx=20)
+
+
+        window.bind_all('<KeyRelease>', input_keyup)
 
         ### send answer and close.
 

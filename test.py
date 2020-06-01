@@ -142,4 +142,4 @@ def test(texto_largo):
 
 #test("adfa dfas dfasd fasd fasdf ")
 
-gui_generator(1,"CONTANOS QUÉ ES LO QUE SUCEDE")
+gui_generator(0,"CONTANOS QUÉ ES LO QUE SUCEDE")

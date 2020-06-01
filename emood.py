@@ -83,8 +83,6 @@ def add_to_startup():
 
 
 
-
-
 def check_single_instance():
   if "--reload" not in sys.argv:
       if sys.platform.startswith('win'): #seria win32 siempre igual

@@ -114,8 +114,6 @@ def smiles(main_text="¿Cómo te sentís?",questionId="DefaultId"): #questionID,
          bd=0,
          padx=0,
          pady=0,
-         bg="#FF00FF",
-         fg="#FF0000",
          relief="flat",
          highlightthickness=0,
          command=lambda: save_answer(window,score,inputValue) )

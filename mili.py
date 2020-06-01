@@ -16,7 +16,7 @@ def configure_window(window_type="default"):
     window = tk.Tk()
     window.title("E-Mood v." + version )
     window.configure(background=background_color)
-    window.overrideredirect(1) # Remove border
+    #window.overrideredirect(1) # Remove border
     window.grid_rowconfigure(12, weight=1)
     window.grid_columnconfigure(12, weight=1)
     screen_width = window.winfo_screenwidth()
@@ -57,7 +57,7 @@ def smiles(main_text="¿Cómo te sentís?",questionId="DefaultId"): #questionID,
         neutral_img = tk.PhotoImage(file="src/neutral.png")
         smile_img = tk.PhotoImage(file="src/smile.png")      
     except:
-        sad_img = tk.PhotoImage(file="src/sad.gif")
+        sad_img = tk.PhotoImage(file="src/happy.gif")
         neutral_img = tk.PhotoImage(file="src/neutral.gif")
         smile_img = tk.PhotoImage(file="src/smile.gif")
 
@@ -69,17 +69,26 @@ def smiles(main_text="¿Cómo te sentís?",questionId="DefaultId"): #questionID,
         main_title = tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background=background_color) # , anchor="center"
         main_title.grid(row=1,column=1,columnspan=12,pady=30,stick="WENS")
 
-        sad_face = tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = sad_img,
+        sad_face = tk.Button(window, text='', width=120,height=120,cursor="hand2",border=0,background=background_color,image = sad_img,
          highlightbackground=background_color,
          highlightcolor=background_color,
+         borderwidth=0,
+         bd=0,
+         padx=0,
+         pady=0,
+         bg="#FF00FF",
+         fg="#FF0000",
+         relief="flat",
+         highlightthickness=0,
+         
          command=lambda: show_input("¿Quieres contarnos por que?",-1) )
         sad_face.grid(row=2,columnspan=1,column=4,pady=0,padx=5,stick="WENS") # ,padx=20,pady=20
 
-        neutral_face = tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = neutral_img,
+        neutral_face = tk.Button(window, text='', width=120,height=120,cursor="hand2",border=0,background=background_color,image = neutral_img,
          command=lambda: show_input("¿Queres contarnos algo?",0) )
         neutral_face.grid(row=2,columnspan=1,column=8,pady=0,padx=60,stick="WENS")
 
-        smile_face = tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = smile_img,
+        smile_face = tk.Button(window, text='', width=120,height=120,cursor="hand2",border=0,background=background_color,image = smile_img,
          command=lambda: show_input("¿Queres contarnos por que?",1) )
         smile_face.grid(row=2,columnspan=1,column=9,pady=0,padx=0,stick="WENS")
 
@@ -98,7 +107,17 @@ def smiles(main_text="¿Cómo te sentís?",questionId="DefaultId"): #questionID,
          command=lambda: save_answer(window,score,inputValue) )
         ok_button.grid(row=12,column=8,pady=20,columnspan=1,padx=70)
         
-        no_button = tk.Button(window, text='Enviar', font='Sans 20', width=10,height=1,cursor="hand2",border=0,
+        no_button = tk.Button(window, text='Enviar 😄', font='Sans 20', width=10,height=1,cursor="hand2",border=0,
+         highlightbackground=background_color,
+         highlightcolor=background_color,
+         borderwidth=0,
+         bd=0,
+         padx=0,
+         pady=0,
+         bg="#FF00FF",
+         fg="#FF0000",
+         relief="flat",
+         highlightthickness=0,
          command=lambda: save_answer(window,score,inputValue) )
         no_button.grid(row=12,column=12,pady=20,columnspan=1,padx=20)
 

@@ -30,7 +30,24 @@ def clear_grid(window):
     """ Clear everything in Grid"""
     for label in window.grid_slaves():
         # if int(label.grid_info()["row"]) > 6:
+        # find grid "hide all"
+        #main_title.configure(text='OUCH!')
+        #sad_face.grid_remove()
+        # grid()
         label.grid_forget()    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def smiles(main_text="Default Text sdafasdfasdf"):
@@ -44,31 +61,31 @@ def smiles(main_text="Default Text sdafasdfasdf"):
 
     #  First Step
     def show_first():
-        background_color = "#FF00FF"
-        main_title = tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background="#FF00FF") # , anchor="center"
+        #background_color = "#FF00FF"
+        main_title = tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background=background_color) # , anchor="center"
         main_title.grid(row=1,column=1,columnspan=12,pady=20,stick="WENS")
 
         sad_face = tk.Button(window, text=' ', width=150,height=120,cursor="hand2",border=0,background=background_color,image = sad_img,
          command=lambda: show_input("¿Quieres contarnos por que?",-1) )
-        sad_face.grid(row=2,columnspan=1,column=4,pady=20,padx=0,stick="WENS") # ,padx=20,pady=20
+        sad_face.grid(row=2,columnspan=1,column=4,pady=20,padx=5,stick="WENS") # ,padx=20,pady=20
 
-        neutral_face = tk.Button(window, text=' ', width=150,height=120,cursor="hand2",border=0,background="#220022",image = neutral_img,
+        neutral_face = tk.Button(window, text=' ', width=150,height=120,cursor="hand2",border=0,background=background_color,image = neutral_img,
          command=window.destroy )
         neutral_face.grid(row=2,columnspan=1,column=8,pady=20,padx=65,stick="WENS")
 
-        smile_face = tk.Button(window, text=' ', width=150,height=120,cursor="hand2",border=0,background="#FF0000",image = smile_img,
+        smile_face = tk.Button(window, text=' ', width=150,height=120,cursor="hand2",border=0,background=background_color,image = smile_img,
          command=window.destroy )
         smile_face.grid(row=2,columnspan=1,column=9,pady=20,padx=0,stick="WENS")
 
-    # Seccond Step
+    # Second Step
     def show_input(main_text="default text",score=0):
         clear_grid(window)
 
-        main_title = tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background="#FF00FF") # , anchor="center"
-        main_title.grid(row=1,column=1,columnspan=12,pady=20,stick="WENS")
+        main_title = tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background=background_color) # , anchor="center"
+        main_title.grid(row=0,column=1,columnspan=12,pady=20,stick="WENS")
 
         textBox = tk.Text(window, width=50,height=6)
-        textBox.grid(row=2,column=0,columnspan=1,padx=0,pady=0,stick="WENS")
+        textBox.grid(row=2,column=1,columnspan=12,padx=0,pady=0,stick="S")
 
         ok_button = tk.Button(window, text='Cancelar', font='Sans 20', width=10,height=1,cursor="hand2",border=0,
          command=window.destroy )
@@ -80,17 +97,18 @@ def smiles(main_text="Default Text sdafasdfasdf"):
 
         ### send answer and close.
 
-        # find grid "hide all"
-        #main_title.configure(text='OUCH!')
-        #sad_face.grid_remove()
-        # grid()
-
-
-
-
     show_first()
-    window.update()
+    #window.update()
     window.mainloop()
+
+
+
+
+
+
+
+
+
 
 
 def test():

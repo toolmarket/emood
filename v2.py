@@ -15,12 +15,6 @@ exit()
 
 
 
-
-
-
-
-
-
 def initialization():
   """ STUFF THAT RUNS ONECE ON STARTUP"""
   # QUIZAS PODRIA PONER TODO ESTO EN CONFIG.PY

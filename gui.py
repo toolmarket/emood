@@ -36,7 +36,9 @@ def clear_grid(window):
         # grid()
         label.grid_forget()    
 
-def save_answer(data=0):
+def save_answer(window,score,inputValue,questionId="DefaultId",questionType="Default"):
+    print(score,inputValue,questionId,questionType)
+    window.destroy()
     pass
     # config = shelve.open('src/data.db') # Abrimos la base de datos para guardar la respuesta.
 
@@ -92,27 +94,18 @@ def save_answer(data=0):
 
 
 
-
-def smiles(main_text="Default Text sdafasdfasdf"):
+# gui_generator(type=0,main_text="¿Cómo te sentís?",questionId="DefaultId",questionType="Default",data=0):
+def smiles(main_text="¿Cómo te sentís?",questionId="DefaultId"): #questionID,ETC.   
     """ CUSTOM WINDOW CREATION """
     # SET UP WINDOW.
     window = configure_window()
+    questionType="Smiles"
 
     sad_img = tk.PhotoImage(file="src/sad.png")
     neutral_img = tk.PhotoImage(file="src/neutral.png")
     smile_img = tk.PhotoImage(file="src/smile.png")      
 
-    def input_keyup(data):
-        print(data.keycode)
-        inputValue= textBox.get("1.0","end-1c").strip()
-        if len(inputValue) > 1:
-            # send_button.config(text='Enviar')
-            pass
-        else:
-            # send_button.config(text='No')
-            pass
-        if(data.keycode == 13): # Enter ahora envia el formulario.
-            save_answer()
+    inputValue = ""
 
     #  First Step
     def show_first():
@@ -144,14 +137,26 @@ def smiles(main_text="Default Text sdafasdfasdf"):
         textBox.grid(row=2,column=1,columnspan=12,padx=0,pady=0,stick="S")
 
         ok_button = tk.Button(window, text='Cancelar', font='Sans 20', width=10,height=1,cursor="hand2",border=0,
-         command=window.destroy )
+         command=lambda: save_answer(window,score,inputValue) )
         ok_button.grid(row=4,column=8,pady=20,columnspan=1,padx=70)
         
         no_button = tk.Button(window, text='Enviar', font='Sans 20', width=10,height=1,cursor="hand2",border=0,
-         command=window.destroy )
+         command=lambda: save_answer(window,score,inputValue) )
         no_button.grid(row=4,column=12,pady=20,columnspan=1,padx=20)
 
 
+        def input_keyup(data):
+            global inputValue
+            print(data.keycode)
+            inputValue= textBox.get("1.0","end-1c").strip()
+            if len(inputValue) > 1:
+                # send_button.config(text='Enviar')
+                pass
+            else:
+                # send_button.config(text='No')
+                pass
+            if(data.keycode == 13): # Enter ahora envia el formulario.
+                save_answer(window,score,inputValue) # inputValue, score
         window.bind_all('<KeyRelease>', input_keyup)
 
         ### send answer and close.

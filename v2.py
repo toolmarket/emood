@@ -12,17 +12,7 @@ import fun, gui
 # gui.show_text(main_text="E-Mood Demo v.{}".format(version),
 #   secondary_text="Aqui puede ir mucho texto.")
 
-gui.show_text(main_text="E-Mood Demo v.{}".format(version),
-  secondary_text="Todo funciona correctamente.\n Windows={}\n Frozen={}\nFile_path={}\nPath={}\nPython={}".format(windows,frozen,__file__,path,python_path ),
-  button_1="Ir a la Web",
-  button_action="https://emood.com.ar",
-  close_option="Cerrar")
-
-
-exit()
-
-
-
+# exit()
 
 
 
@@ -39,9 +29,43 @@ def main_process():
     print( "Do something every tickTime ") # aca va lo que quiero analizar cada X catnidad de segundos. 
     #reply = send_ping() # Hay que mandar un ping cada X cantidad de segundos. 
 
+
+
+    smiles = fun.show_smiles()
+    if smiles:
+      questionId = time.strftime("%Y-%m-%d %H:00:00")+"Smiles"
+      p = multiprocessing.Process(target=gui.smiles, args=("¿CÓMO TE SIENTES?",questionId ) )
+      p.start()
+      p.join(3400) # WAITS ALMOST ONE HOUR BEFORE CLOSING SMILES.
+      p.terminate() # Lo cierra despues del join.
+
+
+
     lastTick = time.time()
 
   pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # ICON LOOP
@@ -84,7 +108,11 @@ def quit_window(icon, item):
 
 def show_window(icon, item):
   #window.after(0,window.deiconify)
-  p = multiprocessing.Process(target=gui_generator, args=(3,"E-Mood V.{}".format(version) ) )
+  p = multiprocessing.Process(target=gui.show_text, args=("E-Mood Demo v.{}".format(version),
+  "Todo funciona correctamente.\n Windows={}\n Frozen={}\nFile_path={}\nPath={}\nPython={}".format(windows,frozen,__file__,path,python_path ),
+  "Ir a la Web",
+  "https://emood.com.ar",
+  "Cerrar"  ) )
   p.start()
   p.join(20)
   p.terminate() # Lo cierra despues del join.

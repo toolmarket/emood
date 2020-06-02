@@ -28,14 +28,16 @@ def first_run():
       # Add script to startup. write config.ini
       # Read Config and Print Keys
       config["userId"] = config["machineId"]
-      config["company"] = ini['defaults']['CompanyName']
-      config["department"] = "default"
-      config["show_smiles"] = ini['defaults']['SurveyTimes']
       config["questions_answered"] = ""
       config['unsentAnswers'] = []
+  config["department"] = "default"
+  config["company"] = ini['defaults']['CompanyName']
+  config["show_smiles"] = ini['defaults']['SurveyTimes']
 
   print ( list( config.keys() ) ) # ['machineId', 'uuId', 'userId', 'version', 'company', 'department', 'unsentAnswers']
   config.close()
+
+
 
 def add_to_startup():
   if sys.platform.startswith('win') and getattr(sys, 'frozen', False): #if Frozen
@@ -116,33 +118,32 @@ def download_update(update_url="https://emood.com.ar/update.zip",update_dir="./"
     return True
 
 
-def check_single_instance():
-  if "--reload" not in sys.argv:
-      if sys.platform.startswith('win'): #seria win32 siempre igual
-          mutex = win32event.CreateMutex(None, False, "gTAvwfsTAvwf52rTAvwfg")
-          last_error = win32api.GetLastError()
-          if last_error == ERROR_ALREADY_EXISTS:
-              print("App already running")
-              os._exit(0)
-      else:
-          print("Not windows") # usar fctl ( Quizas no anda.)
-          fh=open(os.path.realpath(__file__),'r')
-          try:
-              fcntl.flock(fh,fcntl.LOCK_EX|fcntl.LOCK_NB)
-          except:
-              print("App already running")
-              os._exit(0)
-  else:
-      print("Reloaded!")
+def show_smiles(testingTime=False):
+    """ Validate if there is any smile to show """
+    config = shelve.open('src/data.db')
+    nowHours = time.strftime("%H")
+    nowMinutes = time.strftime("%M")
+    nowDate = time.strftime("%m-%d")
 
-def randmom_string(stringlength=20, extra_characters="-/_?*=+()&$%#@<>.,;:[]\{\}/^!~"):
-    '''Generates a random string'''
-    return ''.join([random.choice(string.ascii_letters + string.digits + extra_characters  ) for n in range(stringlength)])
+    if testingTime:
+        config["show_smiles"] = testingTime  # "10:10;16:10"  ########### TESTING VAR
+    test = config["questions_answered"]
 
-def create_machineId():
-    '''Creates uuid'''
-    uuid_hardware = str( uuid.getnode() )
-    uuid_random = randmom_string(40)
-    machine_id = uuid_hardware +"-"+ uuid_random
-    return machine_id
+    print("-Checking Smiles...")
 
+    smile_times = config["show_smiles"].split(";")
+    for times in smile_times:
+        checking = times.split(":")
+        if( nowHours == checking[0] and nowMinutes >= checking[1] and (times+nowDate not in test) ): ## && not in array QUESTIONS_ANSWERED.
+            print("---- Showing Smiles!")
+            config["questions_answered"] = config["questions_answered"]+times+nowDate+";"[-300:] # limita la cantidad de respuestas guardadas.
+            config.close()
+            return True
+
+      #timePassed = datetime.datetime.strptime(nowTime, "%Y-%m-%d %H:%M:%S") - datetime.datetime.strptime(start_time, "%Y-%m-%d %H:%M:%S") # 0:17:05
+      # timePassed.total_seconds() # Float. 
+
+
+    config.close()
+
+    return False

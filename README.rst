@@ -8,7 +8,15 @@ https://github.com/toolmarket/emood
 
 TO DO
 -----
-- Agregar a "autoinicio" >> Esto lo hace el Instalador
+**New Dev**
+1. Save Answers.
+2. Loop ping.
+3. Loop show smiles.
+4. Loop send answers. 
+
+
+
+# Agregar a "autoinicio" >> Esto lo hace el Instalador
 https://hackernoon.com/the-one-stop-guide-to-easy-cross-platform-python-freezing-part-1-c53e66556a0a. o tratar de hacer un shortcut como hace AHK sin admin. 
 https://python-packaging.readthedocs.io/en/latest/index.html
 https://pyinstaller.readthedocs.io/en/stable/

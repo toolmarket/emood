@@ -4,7 +4,7 @@ from config import *
 
 
 # LOCAL GLOBALS
-background_color = '#091337'
+background_color = '#000b35'
 #background_color = '#333333'
 window_width = 600
 window_height = 300

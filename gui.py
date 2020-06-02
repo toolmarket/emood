@@ -8,7 +8,7 @@ window_width = 600
 window_height = 300
 move_up = 100 # movemos la ventana unos pixeles para arriba.
 
-def configure_window(window_type="default"):
+def configure_window(window_type="default",window_width=600,window_height=300):
     """ DEFAULT WINDOW TEMPLATE """
     os.chdir( path  )
     window = tk.Tk()
@@ -37,70 +37,65 @@ def clear_grid(window):
         # grid()
         label.grid_forget()    
 
-def save_answer(window,score,inputValue,questionId="DefaultId",questionType="Default"):
-    print(score,inputValue,questionId,questionType)
+def run_action(window,action=False):
+    """ Run Custom Action (open website) This could create security issues."""
+    if( action ):    
+        if windows:
+            os.startfile(action)
+        else:
+            try:
+                subprocess.Popen(['open', action])
+            except:
+                subprocess.Popen(['xdg-open', action])
     window.destroy()
-    pass
-    # config = shelve.open('src/data.db') # Abrimos la base de datos para guardar la respuesta.
 
-    # inputValue= textBox.get("1.0","end-1c").strip()
+
+def save_answer(window,score,inputValue,questionId="DefaultId",questionType="Default",questionTime="unknown"):
+    """ SAVE DATA TO SHELVE """
+    print(score,inputValue,questionId,questionType)
+
+    config = shelve.open('src/data.db') # Abrimos la base de datos para guardar la respuesta.
     
+    answerTime = time.strftime("%Y-%m-%d %H:%M:%S")
+    print(inputValue, questionId)
+    #config.setdefault('unsentAnswers', []) # list.append()
+    new_data = {
+        "answerTime": answerTime,
+        "questionTime": questionTime,
+        "userId": config["userId"],
+        "questionId": questionId,
+        "version": config["version"],
+        "company": config["company"],
+        "feedback": inputValue,
+        "answer": score,
+        "department": config["department"],
+        "questionType": questionType,
+    }
+    
+    unsentAnswers = config['unsentAnswers']
+    unsentAnswers.append(new_data)
+    config['unsentAnswers'] = unsentAnswers
+    for answer in config['unsentAnswers']:
+        print ( answer )
 
-    # answerTime = time.strftime("%Y-%m-%d %H:%M:%S")
-
-    # questionId = config['questionId']
-    # questionData = config['questionData']
-    # questionType = config['questionType']
-
-    # print(inputValue, questionId)
-    # #config.setdefault('unsentAnswers', []) # list.append()
-    # new_data = {
-    #     "answerTime": answerTime,
-    #     "questionTime": questionTime,
-    #     "userId": config["userId"],
-    #     "questionId": questionId,
-    #     "version": config["version"],
-    #     "company": config["company"],
-    #     "feedback": inputValue,
-    #     "answer": questionData,
-    #     "department": config["department"],
-    #     "questionType": questionType,
-    # }
-    # try:
-    #     unsentAnswers = config['unsentAnswers'] # Crear un nuevo shelve solo para esto. No utilizar la configuración.
-    # except:
-    #     config['unsentAnswers'] = []
-    #     unsentAnswers = config['unsentAnswers']
-    # unsentAnswers.append(new_data)
-    # config['unsentAnswers'] = unsentAnswers
-    # for answer in config['unsentAnswers']:
-    #     print ( answer )
-
-    # config['questionData'] = ""
-    # config['questionId'] = ""
-    # config['questionType'] = ""
-    # config.close() # Cerrando la base
-    # # config.sync()
-    # # Quizas la podemos guardar y meter en el loop siguiente de "envio de respuestas". Pero necesitamos un ID para la pregunta. 
-    # window.destroy()
+    config.close() # Cerrando la base
+    # Quizas la podemos guardar y meter en el loop siguiente de "envio de respuestas". Pero necesitamos un ID para la pregunta. 
+    window.destroy()
 
 
 
 
 
-
-
-
-
-
-
+# GUI TEMPLATES
 
 # gui_generator(type=0,main_text="¿Cómo te sentís?",questionId="DefaultId",questionType="Default",data=0):
 def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,ETC.   
     """ CUSTOM WINDOW CREATION """
     # SET UP WINDOW.
+
     window = configure_window()
     questionType="Smiles"
+    questionTime = time.strftime("%Y-%m-%d %H:%M:%S")
 
     sad_img = tk.PhotoImage(file="src/sad.gif")
     neutral_img = tk.PhotoImage(file="src/neutral.gif")
@@ -124,9 +119,9 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
         smile_face.grid(row=2,columnspan=1,column=12,pady=0,padx=0,stick="WENS")
 
         #ACTIONS
-        sad_face.bind('<Button-1>', lambda event, text="¿Queres contarnos por que?",score=-1: show_input(text,score) )
-        neutral_face.bind('<Button-1>', lambda event, text="¿Queres contarnos por que?",score=0: show_input(text,score) )
-        smile_face.bind('<Button-1>', lambda event, text="¿Queres contarnos por que?",score=1: show_input(text,score) )
+        sad_face.bind('<Button-1>', lambda event, text="¿QUIERES CONTARNOS POR QUE?",score=-1: show_input(text,score) )
+        neutral_face.bind('<Button-1>', lambda event, text="¿QUIERES CONTARNOS POR QUE?",score=0: show_input(text,score) )
+        smile_face.bind('<Button-1>', lambda event, text="¿QUIERES CONTARNOS POR QUE?",score=1: show_input(text,score) )
 
     # Second Step
     def show_input(main_text="default text",score=0):
@@ -140,26 +135,19 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
         textBox.grid(row=2,column=1,columnspan=12,padx=0,pady=0,stick="S")
 
         ok_button = tk.Button(window, text='Cancelar', font='Sans 20', width=10,height=1,cursor="hand2",border=0,
-         command=lambda: save_answer(window,score,inputValue) )
+         command=lambda: save_answer(window,score,inputValue,questionId,questionType,questionTime) )
         ok_button.grid(row=12,column=8,pady=20,columnspan=1,padx=70)
         
         no_button = tk.Button(window, text='Enviar', font='Sans 20', width=10,height=1,cursor="hand2",border=0,
-         command=lambda: save_answer(window,score,inputValue) )
+         command=lambda: save_answer(window,score,inputValue,questionId,questionType,questionTime) )
         no_button.grid(row=12,column=12,pady=20,columnspan=1,padx=20)
-
 
         def input_keyup(data):
             global inputValue
-            print(data.keycode)
+            #print(data.keycode)
             inputValue= textBox.get("1.0","end-1c").strip()
-            if len(inputValue) > 1:
-                # send_button.config(text='Enviar')
-                pass
-            else:
-                # send_button.config(text='No')
-                pass
             if(data.keycode == 13): # Enter ahora envia el formulario.
-                save_answer(window,score,inputValue) # inputValue, score
+                save_answer(window,score,inputValue,questionId,questionType,questionTime) # inputValue, score
         
         window.bind_all('<KeyRelease>', input_keyup)
 
@@ -168,6 +156,119 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
     show_first()
     #window.update()
     window.mainloop()
+
+
+
+
+
+
+
+
+
+
+#Mostrar titulo con un subtexto.
+def show_text(main_text="Titulo",secondary_text="Esto es más texto.",button_1="Cerrar",button_action=False,close_option=False): #questionID,ETC.   
+    window = configure_window(window_type="default",window_width=600,window_height=400)
+    main_title = tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 16', background=background_color,wraplength=600) # , anchor="center"
+    main_title.grid(row=1,column=1,columnspan=12,pady=30,stick="WENS")
+
+    main_text = tk.Label(window, text = secondary_text, fg="#FFFFFF", font='Sans 12', background=background_color,wraplength=600) # , anchor="center"
+    main_text.grid(row=2,column=1,columnspan=12,rowspan=5,pady=30,stick="WENS")
+
+    ok_button = tk.Button(window, text=button_1, font='Sans 16', width=10,height=1,cursor="hand2",border=0,
+        command=lambda: run_action(window,button_action) )
+    no_button = tk.Button(window, text=close_option, font='Sans 16', width=10,height=1,cursor="hand2",border=0,
+        command=window.destroy )
+
+
+    if close_option:
+        no_button.grid(row=12,column=8,pady=20,columnspan=1,padx=70)
+        ok_button.grid(row=12,column=12,pady=20,columnspan=1,padx=20)
+    else:
+        ok_button.grid(row=12,column=1,pady=20,columnspan=12,padx=0)
+
+    # no_button = tk.Button(window, text='Enviar', font='Sans 20', width=10,height=1,cursor="hand2",border=0,
+    #     command=lambda: save_answer(window,score,inputValue,questionId,questionType,questionTime) )
+    # no_button.grid(row=12,column=12,pady=20,columnspan=1,padx=20)
+
+
+
+    window.mainloop()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

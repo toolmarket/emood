@@ -114,3 +114,35 @@ def download_update(update_url="https://emood.com.ar/update.zip",update_dir="./"
       print( "type error: " + str(e) )
       return False
     return True
+
+
+def check_single_instance():
+  if "--reload" not in sys.argv:
+      if sys.platform.startswith('win'): #seria win32 siempre igual
+          mutex = win32event.CreateMutex(None, False, "gTAvwfsTAvwf52rTAvwfg")
+          last_error = win32api.GetLastError()
+          if last_error == ERROR_ALREADY_EXISTS:
+              print("App already running")
+              os._exit(0)
+      else:
+          print("Not windows") # usar fctl ( Quizas no anda.)
+          fh=open(os.path.realpath(__file__),'r')
+          try:
+              fcntl.flock(fh,fcntl.LOCK_EX|fcntl.LOCK_NB)
+          except:
+              print("App already running")
+              os._exit(0)
+  else:
+      print("Reloaded!")
+
+def randmom_string(stringlength=20, extra_characters="-/_?*=+()&$%#@<>.,;:[]\{\}/^!~"):
+    '''Generates a random string'''
+    return ''.join([random.choice(string.ascii_letters + string.digits + extra_characters  ) for n in range(stringlength)])
+
+def create_machineId():
+    '''Creates uuid'''
+    uuid_hardware = str( uuid.getnode() )
+    uuid_random = randmom_string(40)
+    machine_id = uuid_hardware +"-"+ uuid_random
+    return machine_id
+

@@ -23,6 +23,10 @@ def first_run():
   if ini['defaults']['Startup'] == "1":
     print("Add to startup")
     add_to_startup()
+    
+  config["department"] = "default"
+  config["company"] = ini['defaults']['CompanyName']
+  config["show_smiles"] = ini['defaults']['SurveyTimes']
       
   if( first_run ):
       # Add script to startup. write config.ini
@@ -30,9 +34,7 @@ def first_run():
       config["userId"] = config["machineId"]
       config["questions_answered"] = ""
       config['unsentAnswers'] = []
-  config["department"] = "default"
-  config["company"] = ini['defaults']['CompanyName']
-  config["show_smiles"] = ini['defaults']['SurveyTimes']
+      
 
   print ( list( config.keys() ) ) # ['machineId', 'uuId', 'userId', 'version', 'company', 'department', 'unsentAnswers']
   config.close()
@@ -131,6 +133,7 @@ def show_smiles(testingTime=False):
 
     print("-Checking Smiles...")
 
+    print(config["show_smiles"], )
     smile_times = config["show_smiles"].split(";")
     for times in smile_times:
         checking = times.split(":")

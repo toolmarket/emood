@@ -9,8 +9,8 @@ import fun, gui
 # gui.smiles()
 
 
-# gui.show_text(main_text="E-Mood Demo v.{}".format(version),
-#   secondary_text="Aqui puede ir mucho texto.")
+# gui.show_text(main_text="MENSAJE DE RRHH".format(version),
+#   secondary_text="Nadie va a cobrar nada nunca. Considerense todos despedidos. Chau mundo!")
 
 # exit()
 
@@ -140,7 +140,8 @@ if __name__ == '__main__':
   multiprocessing.set_start_method('spawn') # fork crea una copia de memoria(?aprox)
 
   fun.check_single_instance() # If not single instance exit.
-
+  fun.first_run()
+  
   image = Image.open("src/logo.ico")
   menu = pystray.Menu(pystray.MenuItem(text="Version", action=show_window, default=True),
                         pystray.MenuItem(text="Config", action=open_config),

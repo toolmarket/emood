@@ -26,6 +26,7 @@ http://izpack.org/downloads/
 https://jrsoftware.org/isdl.php
 
 
+
 REMEMBER
 --------
 - Users will have an INBOX on the DB, where admins can queue up actions. 
@@ -61,14 +62,16 @@ pyinstaller emood/emood.py -n emood --noconfirm --add-data emood/src:dist/emood
 https://cx-freeze.readthedocs.io/en/latest/overview.html
 
 
-
+# Creador para MAC
+https://sveinbjorn.org/platypus
 
 
 
 Buen ejemplo a seguir:
 https://github.com/metabrainz/picard
 
-
+Rename emood.py 
+chmod +x Test.command
 
 
 Si no embedder el python.exe y listo. 

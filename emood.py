@@ -41,7 +41,7 @@ def main_process():
     if ( reply["action"] == "null" ): 
       print("- No reply form server.")
 
-    fun.download_update(update_url="https://emood.com.ar/update.zip",update_dir="./",icon=icon)
+    #fun.download_update(update_url="https://emood.com.ar/update.zip",update_dir="./",icon=icon)
 
     # CHECKING SMILES.
     smiles = fun.show_smiles()

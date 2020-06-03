@@ -9,7 +9,6 @@ https://github.com/toolmarket/emood
 TO DO
 -----
 **New Dev**
-4. Loop send answers.
 5. Update Tests.
 6. Autostart MAC 
 

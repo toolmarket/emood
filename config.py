@@ -1,4 +1,4 @@
-version = "0.22"
+version = "0.55"
 
 # IMPORTS
 # IMPORTS python -m pip install pillow tk image pywin32 pystray requests

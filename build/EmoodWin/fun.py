@@ -122,7 +122,11 @@ def download_update(update_url="https://emood.com.ar/update.zip",update_dir="./"
     icon.stop()
 
     if getattr(sys, 'frozen', False):
-        os.execv(filename, sys.argv)
+        #os.execv(filename, "--reload")
+        #os.execvp(filename,[filename, filename+" --reload"])
+        os.execv(filename, ['--reload'])
+        sys.exit() #tampoco funciona
+
     else:
         print("NOT FROZEN: "+filename)
         os.execvp("python",["python", filename+" --reload"]) # os.execvp("python",["python", "start.py --reload"])

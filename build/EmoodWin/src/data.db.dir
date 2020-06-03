@@ -4,6 +4,6 @@
 'company', (1536, 20)
 'department', (2048, 17)
 'show_smiles', (2560, 21)
-'questions_answered', (3072, 21)
+'questions_answered', (3072, 32)
 'unsentAnswers', (3584, 6)
 'questionData', (4096, 5)

@@ -61,8 +61,8 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
     #  First Step
     def show_first():
         #background_color = "#FF00FF"
-        main_title = tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background=background_color) # , anchor="center"
-        main_title.grid(row=1,column=1,columnspan=12,pady=30,stick="WENS")
+        main_title = tk.Label(window, text = main_text, height=1, fg="#FFFFFF", font=('Sans', 28, 'bold'), background=background_color) # , anchor="center"
+        main_title.grid(row=1,column=1,columnspan=12,pady=40,stick="WENS")
 
         sad_face = tk.Label(window, text='', width=120,height=120,cursor="hand2",image = sad_img,border=0,background=background_color )
         sad_face.grid(row=2,columnspan=1,column=1,pady=0,padx=15,stick="WENS") # ,padx=20,pady=20
@@ -74,26 +74,26 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
         smile_face.grid(row=2,columnspan=1,column=12,pady=0,padx=0,stick="WENS")
 
         #ACTIONS
-        sad_face.bind('<Button-1>', lambda event, text="¿Queres contarnos por que?",score=-1: show_input(text,score) )
-        neutral_face.bind('<Button-1>', lambda event, text="¿Queres contarnos por que?",score=0: show_input(text,score) )
-        smile_face.bind('<Button-1>', lambda event, text="¿Queres contarnos por que?",score=1: show_input(text,score) )
+        sad_face.bind('<Button-1>', lambda event, text="¿QUERÉS CONTARNOS POR QUÉ?",score=-1: show_input(text,score) )
+        neutral_face.bind('<Button-1>', lambda event, text="¿QUERÉS CONTARNOS POR QUÉ?",score=0: show_input(text,score) )
+        smile_face.bind('<Button-1>', lambda event, text="¿QUERÉS CONTARNOS POR QUÉ?",score=1: show_input(text,score) )
 
     # Second Step
     def show_input(main_text="default text",score=0):
         clear_grid(window)
         # score var
 
-        main_title = tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background=background_color) # , anchor="center"
+        main_title = tk.Label(window, text = main_text, fg="#FFFFFF", font=('Sans', 25, 'bold'), background=background_color) # , anchor="center"
         main_title.grid(row=0,column=1,columnspan=12,pady=20,stick="WENS")
 
-        textBox = tk.Text(window, width=50,height=6)
+        textBox = tk.Text(window, width=50,height=6,)
         textBox.grid(row=2,column=1,columnspan=12,padx=0,pady=0,stick="S")
 
-        ok_button = tk.Button(window, text='Cancelar', font='Sans 20', width=10,height=1,cursor="hand2",border=0,
+        ok_button = tk.Button(window, text='CANCELAR', font='Sans 15 bold', width=10,height=1, cursor="hand", border=0, highlightbackground="#000b35",
          command=lambda: save_answer(window,score,inputValue) )
         ok_button.grid(row=12,column=8,pady=20,columnspan=1,padx=70)
         
-        no_button = tk.Button(window, text='Enviar', font='Sans 20', width=10,height=1,cursor="hand2",border=0,
+        no_button = tk.Button(window, text='ENVIAR', font='Sans 15 bold', width=10,height=1,cursor="hand",border=0,
          command=lambda: save_answer(window,score,inputValue) )
         no_button.grid(row=12,column=12,pady=20,columnspan=1,padx=20)
 

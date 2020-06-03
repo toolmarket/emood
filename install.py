@@ -35,26 +35,3 @@ if sys.platform == "darwin":
 
 
 
-
-
-
-
-
-
-if sys.platform == "win32":
-    print("- Windows Detected")
-    
-    packages = ["os","tkinter","sys","uuid","subprocess","importlib",
-    "configparser","threading","pathlib","dbm","shelve","zipfile","io","json","requests",
-    "certifi","chardet","idna","pystray","six","urllib3","multiprocessing","PIL","fcntl"]
-    
-    for package in packages:
-        try:
-            #pipmain( ['install', package] )
-            #os.execv(python_path, ['python.exe -m pip install',package])
-            os.system(python_path + " -m pip install "+package )
-        except Exception as e:
-            print( "Error: " + str(e) )
-
-
-# python_path

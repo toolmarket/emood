@@ -9,11 +9,9 @@ https://github.com/toolmarket/emood
 TO DO
 -----
 **New Dev**
-1. Save Answers.
-2. Loop ping.
-3. Loop show smiles.
-4. Loop send answers. 
-
+4. Loop send answers.
+5. Update Tests.
+6. Autostart MAC 
 
 
 # Agregar a "autoinicio" >> Esto lo hace el Instalador

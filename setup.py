@@ -7,8 +7,9 @@ from cx_Freeze import setup, Executable
 build_exe_options = {
     "packages": 
 ["os","tkinter","sys","winerror","uuid","subprocess","importlib","configparser","threading","pathlib","dbm","shelve","zipfile","io","json","requests","certifi","chardet","idna","pystray","six","urllib3","multiprocessing","image","win32event","win32api"], 
-    "excludes": ["django"],
-    "include_files": ["emood.py","src","config.ini"]
+    "excludes": ["django","scipy","numpy","PyQt5","llvmlite","notebook","babel","matplotlib","mkl","jupyter"],
+    "include_files": ["config.py","gui.py","fun.py","src","config.ini"],
+    'build_exe': './/build'
 }
 #build_exe_options = {}
 
@@ -27,9 +28,9 @@ if sys.platform == "win32":
 
 
 setup(  name = "emood",
-        version = "0.22",
+        version = "0.5",
         
         description = "Making RRHH great again!",
         options = {"build_exe": build_exe_options},
-        executables = [Executable("start.py", base=base,icon="src/logo.ico")])
+        executables = [Executable("emood.py", base=base,icon="src/logo.ico")])
 

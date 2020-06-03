@@ -125,6 +125,7 @@ def download_update(update_url="https://emood.com.ar/update.zip",update_dir="./"
         #os.execv(filename, "--reload")
         #os.execvp(filename,[filename, filename+" --reload"])
         os.execv(filename, ['--reload'])
+        #os.execv(__file__, sys.argv)
         sys.exit() #tampoco funciona
 
     else:

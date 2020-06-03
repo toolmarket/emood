@@ -32,7 +32,7 @@ else:
         "packages": 
     ["os","tkinter","sys","uuid","subprocess","importlib",
     "configparser","threading","pathlib","dbm","shelve","zipfile","io","json","requests",
-    "certifi","chardet","idna","pystray","six","urllib3","multiprocessing","image","fcntl"], 
+    "certifi","chardet","idna","pystray","six","urllib3","multiprocessing","PIL","fcntl"], 
         "excludes": ["django","scipy","numpy","PyQt5","llvmlite","notebook","babel","matplotlib","mkl","jupyter"],
         "include_files": ["config.py","gui.py","fun.py","src","config.ini"],
         'build_exe': './/build/EmoodMac/'

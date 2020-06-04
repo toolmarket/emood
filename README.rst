@@ -9,8 +9,13 @@ https://github.com/toolmarket/emood
 TO DO
 -----
 **New Dev**
+4. Add all requiered imports at vendor folder.
 5. Update Tests.
 6. Autostart MAC 
+
+
+
+
 
 
 # Agregar a "autoinicio" >> Esto lo hace el Instalador

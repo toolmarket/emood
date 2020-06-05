@@ -193,9 +193,9 @@ def gui_generator(type=0,main_text="¿Cómo te sentís?",questionId="DefaultId",
     """ Creates the windows """
     #path = os.path.dirname( os.path.abspath(__file__) )
     #os.chdir( path ) # Cambiar el workingdir a dode esta este script(los threads se pierden un poco si no)
-    config = shelve.open('src/data.db') 
+    #config = shelve.open('src/data.db') 
     window = tk.Tk()
-    window.title("E-Mood v." + str( config["version"] ) )
+    window.title("E-Mood v." )
     window_width = 600
     window_height = 300
     move_up = 100 # movemos la ventana unos pixeles para arriba.
@@ -207,7 +207,7 @@ def gui_generator(type=0,main_text="¿Cómo te sentís?",questionId="DefaultId",
     window.grid_columnconfigure(3, weight=1)
     questionTime = time.strftime("%Y-%m-%d %H:%M:%S")
 
-    config.close()
+    #config.close()
 
     # Botones de Acciones dentro del GUI. 
     def btn_next(datos=0):
@@ -290,9 +290,9 @@ def gui_generator(type=0,main_text="¿Cómo te sentís?",questionId="DefaultId",
    
     if type == 0: # SHOW FACES
         tk.Label(window, text = main_text, fg="#FFFFFF", font='Sans 20', background=background_color).grid(row=0,column=0,columnspan=9,pady=20)   # Helvetica
-        img1 = tk.PhotoImage(file="src/sad.png")
-        img2 = tk.PhotoImage(file="src/neutral.png")
-        img3 = tk.PhotoImage(file="src/smile.png")
+        img1 = tk.PhotoImage(file="src/sad.gif")
+        img2 = tk.PhotoImage(file="src/neutral.gif")
+        img3 = tk.PhotoImage(file="src/smile.gif")
 
         tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = img1, command=lambda: btn_next(-1) ).grid(row=2,column=1,pady=20,padx=20)
         tk.Button(window, text='', width=150,height=120,cursor="hand2",border=0,background=background_color,image = img2, command=lambda: btn_next(0) ).grid(row=2,column=3,pady=20)
@@ -366,8 +366,8 @@ def gui_generator(type=0,main_text="¿Cómo te sentís?",questionId="DefaultId",
 
 
 
-
-
+gui_generator()
+exit()
 
 
 

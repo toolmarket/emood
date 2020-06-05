@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 import sys
 from cx_Freeze import setup, Executable
 
@@ -46,7 +48,7 @@ else:
     "certifi","chardet","idna","pystray","six","urllib3","multiprocessing","PIL","fcntl","pkg_resources","sysconfig"], 
         "excludes": ["django","scipy","numpy","PyQt5","llvmlite","notebook","babel","matplotlib","mkl","jupyter"],
         "include_files": ["config.py","gui.py","fun.py","src","vendor","config.ini"],
-        'build_exe': './/build/EmoodMac3/'
+        'build_exe': './/build/EmoodMac2/'
     }
     base = None    
 

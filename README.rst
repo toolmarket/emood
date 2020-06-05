@@ -9,7 +9,8 @@ https://github.com/toolmarket/emood
 TO DO
 -----
 **New Dev**
-4. Add all requiered imports at vendor folder.
+4. Add all requiered imports at vendor folder.   pip install <pkg_name> -t /path/to/vendor_dir
+5. Fix for python2
 5. Update Tests.
 6. Autostart MAC 
 

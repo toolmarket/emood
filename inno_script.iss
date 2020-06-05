@@ -6,18 +6,18 @@
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{AE2FFB4F-8579-4037-89CD-E1ADD6373A05}
-SignTool=signtool $f
-AppName=Emood Demo
+;SignTool=signtool $f
+AppName=Emood
 AppVersion=0.2
 ;AppVerName=Emood Demo 0.2
 AppPublisher=Custom Group
 AppPublisherURL=https://emood.com.ar/
 AppSupportURL=https://emood.com.ar/
 AppUpdatesURL=https://emood.com.ar/
-DefaultDirName={pf}\Emood Demo
-DefaultGroupName=Emood Demo
+DefaultDirName={pf}\Emood
+DefaultGroupName=Emood
 OutputBaseFilename=setup
-SetupIconFile=C:\Users\frank\Documents\emood_final\build\exe.win-amd64-3.7\src\logo.ico
+SetupIconFile=C:\Users\frank\Documents\emood\emood\build\EmoodWin3\src\logo.ico
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
@@ -31,16 +31,16 @@ Name: "{app}\"; Permissions: everyone-full
 Name: "{app}\src\"; Permissions: everyone-full
 
 [Files]
-Source: "C:\Users\frank\Documents\emood_final\build\exe.win-amd64-3.7\start.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\frank\Documents\emood_final\build\exe.win-amd64-3.7\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\frank\Documents\emood\emood\build\EmoodWin3\emood.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\frank\Documents\emood\emood\build\EmoodWin3\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
 Name: "{group}\Emood Demo"; Filename: "{app}\start.exe"
 Name: "{group}\{cm:UninstallProgram,Emood Demo}"; Filename: "{uninstallexe}"
-Name: "{commondesktop}\Emood Demo"; Filename: "{app}\start.exe"; Tasks: desktopicon
-Name: "{commonstartup}\Emood Demo"; Filename: "{app}\start.exe"
+Name: "{commondesktop}\Emood"; Filename: "{app}\emood.exe"; Tasks: desktopicon
+Name: "{commonstartup}\Emood"; Filename: "{app}\emood.exe"
 
 [Run]
-Filename: "{app}\start.exe"; Description: "{cm:LaunchProgram,Emood Demo}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\emood.exe"; Description: "{cm:LaunchProgram,Emood}"; Flags: nowait postinstall skipifsilent
 

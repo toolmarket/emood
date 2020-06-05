@@ -378,7 +378,7 @@ def gui_tests(type=0,main_text="wolololo",questionId="DefaultId",questionType="D
     screen_height = window.winfo_screenheight()  
     window.geometry("%dx%d+%d+%d" % (window_width, window_height,screen_width/2-window_width/2, screen_height/2-window_height/2 - move_up)) 
     try:
-    window.iconbitmap('src/logo.ico')
+        window.iconbitmap('src/logo.ico')
     except:
         pass # Error en linux.
     window.resizable(0, 0) # Can't Resize

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from config import *
-
+import gui
 
 # LOCAL GLOBALS
 background_color = '#000b35'
@@ -123,9 +123,10 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
 
 
 
+gui.smiles()
 
 
-smiles()
+#smiles()
 
 
 exit()

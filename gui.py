@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 # The purpose of this file to hold everything related to creating and showin GUIs
 from config import *
 

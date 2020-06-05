@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 import os,sys
 from pathlib import Path
 path = os.path.dirname( os.path.abspath(sys.argv[0])) 
@@ -13,7 +14,7 @@ import fun, gui
 
 # gui.smiles()
 
-
+#python.exe -m pip install pillow tk image pywin32 pystray requests pathlib
 # gui.show_text(main_text="MENSAJE DE RRHH".format(version),
 #   secondary_text="Nadie va a cobrar nada nunca. Considerense todos despedidos. Chau mundo!")
 # UPDATED
@@ -183,7 +184,7 @@ if __name__ == '__main__':
 
 
   multiprocessing.freeze_support() # Para multiprocesing
-  multiprocessing.set_start_method('spawn') # fork crea una copia de memoria(?aprox)
+  #multiprocessing.set_start_method('spawn') # fork crea una copia de memoria(?aprox)
 
   fun.check_single_instance() # If not single instance exit.
   fun.first_run()

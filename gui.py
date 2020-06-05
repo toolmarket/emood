@@ -112,6 +112,10 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
     smile_img2 = tk.PhotoImage(file="src/smile2.gif")
 
     inputValue = ""
+    if windows:
+        mouse_pointer = "hand2"
+    else:
+        mouse_pointer = "pointinghand"
 
     #  First Step
     def show_first():
@@ -119,13 +123,13 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
         main_title = tk.Label(window, text = main_text, fg="#FFFFFF", font=('Sans', 28, 'bold'), background=background_color) # , anchor="center"
         main_title.grid(row=1,column=1,columnspan=12,pady=30,stick="WENS") #cambie tipografia
 
-        sad_face = tk.Label(window, text='', width=120,height=120,cursor="pointinghand",image = sad_img,border=0,background=background_color )
+        sad_face = tk.Label(window, text='', width=120,height=120,cursor=mouse_pointer,image = sad_img,border=0,background=background_color )
         sad_face.grid(row=2,columnspan=1,column=1,pady=0,padx=15,stick="WENS") # ,padx=20,pady=20 cursor="hand2" (anterior)
 
-        neutral_face = tk.Label(window, text='', width=120,height=120,cursor="pointinghand",image = neutral_img,border=0,background=background_color )
+        neutral_face = tk.Label(window, text='', width=120,height=120,cursor=mouse_pointer,image = neutral_img,border=0,background=background_color )
         neutral_face.grid(row=2,columnspan=1,column=6,pady=0,padx=80,stick="WENS")
 
-        smile_face = tk.Label(window, text='', width=120,height=120,cursor="pointinghand",image = smile_img,border=0,background=background_color )
+        smile_face = tk.Label(window, text='', width=120,height=120,cursor=mouse_pointer,image = smile_img,border=0,background=background_color )
         smile_face.grid(row=2,columnspan=1,column=12,pady=0,padx=0,stick="WENS")
 
         #ACTIONS
@@ -156,11 +160,11 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
         textBox = tk.Text(window, width=50,height=8)
         textBox.grid(row=2,column=1,columnspan=12,padx=0,pady=2,stick="S")
 
-        ok_button = tk.Button(window, text='CANCELAR', font=('Sans', 15, 'bold'), width=10,height=1,cursor="pointinghand",border=0, highlightbackground="#000b35",
+        ok_button = tk.Button(window, text='CANCELAR', font=('Sans', 15, 'bold'), width=10,height=1,cursor=mouse_pointer,border=0, highlightbackground="#000b35",
          command=lambda: save_answer(window,score,inputValue,questionId,questionType,questionTime) )
         ok_button.grid(row=12,column=6,pady=20,columnspan=1,padx=100) #cambie botones y cursor
         
-        no_button = tk.Button(window, text='ENVIAR', font=('Sans', 15, 'bold'), width=10,height=1,cursor="pointinghand",border=0, highlightbackground="#000b35",
+        no_button = tk.Button(window, text='ENVIAR', font=('Sans', 15, 'bold'), width=10,height=1,cursor=mouse_pointer,border=0, highlightbackground="#000b35",
          command=lambda: save_answer(window,score,inputValue,questionId,questionType,questionTime) )
         no_button.grid(row=12,column=10,pady=20,columnspan=1,padx=42)
 

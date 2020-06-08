@@ -157,7 +157,7 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
         main_title = tk.Label(window, text = main_text, fg="#FFFFFF", font=('Sans', 25, 'bold'), background=background_color) # , anchor="center"
         main_title.grid(row=0,column=1,columnspan=12,pady=20,stick="WENS")  #cambie tipografia
 
-        textBox = tk.Text(window, width=50,height=8)
+        textBox = tk.Entry(window, width=50,height=8)
         textBox.grid(row=2,column=1,columnspan=12,padx=0,pady=2,stick="S")
 
         ok_button = tk.Button(window, text='CANCELAR', font=('Sans', 15, 'bold'), width=10,height=1,cursor=mouse_pointer,border=0, highlightbackground="#000b35",

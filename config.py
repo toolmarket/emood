@@ -14,7 +14,7 @@ parent_dir = os.path.abspath(os.path.dirname(__file__))
 vendor_dir = os.path.join(parent_dir, 'vendor')
 
 sys.path.append(vendor_dir)
-import random, string, datetime, time, importlib, threading, zipfile, io, json, subprocess, configparser, uuid, requests, shelve, pystray
+import random,hashlib, string, datetime, time, importlib, threading, zipfile, io, json, subprocess, configparser, uuid, requests, shelve, pystray
 import multiprocessing
 from PIL import Image
 try:  

@@ -78,6 +78,7 @@ def create_machineId():
     uuid_hardware = str( uuid.getnode() )
     uuid_random = randmom_string(40)
     machine_id = uuid_hardware +"-"+ uuid_random
+    hashlib.sha256(machine_id).hexdigest()
     return machine_id
 
 

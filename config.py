@@ -5,7 +5,7 @@ version = "0.22"
 
 # IMPORTS
 # IMPORTS python -m pip install pillow tk image pywin32 pystray requests
-# python2.exe -m pip install pillow image pywin32 pystray requests pathlib tkinter 
+# python2.exe -m pip install pillow image pywin32 pystray requests pathlib tkinter configparser
 import os
 import sys
 

@@ -34,7 +34,7 @@ def main_process():
 
     #SENDING PING
     reply = fun.send_ping() # Hay que mandar un ping cada X cantidad de segundos. 
-    
+    print(reply)
     # Reply UPDATE
     if ( reply["action"] == "update" ): # IF REPLY UPDATE
       print("update with: "+reply["url"])
@@ -184,7 +184,7 @@ if __name__ == '__main__':
 
 
   multiprocessing.freeze_support() # Para multiprocesing
-  #multiprocessing.set_start_method('spawn') # fork crea una copia de memoria(?aprox)
+  multiprocessing.set_start_method('spawn') # fork crea una copia de memoria(?aprox)
 
   fun.check_single_instance() # If not single instance exit.
   fun.first_run()

@@ -77,8 +77,8 @@ def create_machineId():
     '''Creates uuid'''
     uuid_hardware = str( uuid.getnode() )
     uuid_random = randmom_string(40)
-    machine_id = uuid_hardware +"-"+ uuid_random
-    hashlib.sha256(machine_id).hexdigest()
+    machine_id = str(uuid_hardware +"-"+ uuid_random).encode("utf8")
+    machine_id = str(hashlib.sha256(machine_id).hexdigest())
     return machine_id
 
 
@@ -97,15 +97,18 @@ def send_ping():
         "action" : "ping",
         "machineTime" : machineTime,
         "version" : version,
-        "machineId": machineId,
-        "company": company  
+        "userId": machineId,
+        "company": company  #test
     }
+    print(data)
+
     target_url = "http://emood.com.ar/api.php"
     try:
         r = requests.post(target_url, json=data, headers=headers)
+        print(r.text)
         response = json.loads(r.text)
-    except:
-        print( r.text )
+    except Exception as e:
+        print( "type error: " + str(e) )
         return( {"action":"null"} )
     return( response )
 

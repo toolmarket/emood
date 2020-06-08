@@ -17,20 +17,22 @@ def configure_window(window_type="default",window_width=600,window_height=300):
     window = tk.Tk()
     window.title("E-Mood v." + version )
     window.configure(background=background_color)
-    window.overrideredirect(1) # Remove border
+    if windows:
+        window.overrideredirect(1) # Remove border
     window.grid_rowconfigure(12, weight=1)
     window.grid_columnconfigure(12, weight=1)
     screen_width = window.winfo_screenwidth()
     screen_height = window.winfo_screenheight()  
     window.geometry("%dx%d+%d+%d" % (window_width, window_height,screen_width/2-window_width/2, screen_height/2-window_height/2 - move_up)) 
     try:
-        window.iconbitmap('src/logo.ico')
+        window.iconbitmap('src/logo.ico') # TODO #2 hacer que se vea en mac
     except:
         pass #Error en linux
     window.resizable(0, 0) # Can't Resize
     window.lift(aboveThis=window) 
-    window.wm_attributes("-topmost", 1) # always on top
+    window.wm_attributes("-topmost", -1) # always on top
     window.focus_force() # le da foco a la ventana   
+    #window.after(4, lambda: window.focus_force())
     return window
 
 def clear_grid(window):
@@ -111,6 +113,8 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
     neutral_img2 = tk.PhotoImage(file="src/neutral2.gif")
     smile_img2 = tk.PhotoImage(file="src/smile2.gif")
 
+    
+
     inputValue = ""
     if windows:
         mouse_pointer = "hand2"
@@ -157,7 +161,7 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
         main_title = tk.Label(window, text = main_text, fg="#FFFFFF", font=('Sans', 25, 'bold'), background=background_color) # , anchor="center"
         main_title.grid(row=0,column=1,columnspan=12,pady=20,stick="WENS")  #cambie tipografia
 
-        textBox = tk.Entry(window, width=50,height=8)
+        textBox = tk.Text(window, width=50,height=8)        
         textBox.grid(row=2,column=1,columnspan=12,padx=0,pady=2,stick="S")
 
         ok_button = tk.Button(window, text='CANCELAR', font=('Sans', 15, 'bold'), width=10,height=1,cursor=mouse_pointer,border=0, highlightbackground="#000b35",
@@ -180,6 +184,7 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
         ### send answer and close.
 
     show_first()
+    #window.after(1000, lambda: window.focus_force())
     #window.update()
     window.mainloop()
 

@@ -1,7 +1,11 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 version = "0.22"
 
 # IMPORTS
 # IMPORTS python -m pip install pillow tk image pywin32 pystray requests
+# python2.exe -m pip install pillow image pywin32 pystray requests pathlib tkinter configparser
 import os
 import sys
 
@@ -10,10 +14,14 @@ parent_dir = os.path.abspath(os.path.dirname(__file__))
 vendor_dir = os.path.join(parent_dir, 'vendor')
 
 sys.path.append(vendor_dir)
-import random, string, datetime, time, importlib, threading, zipfile, io, json, subprocess, configparser, uuid, requests, shelve, pystray
+import random,hashlib, string, datetime, time, importlib, threading, zipfile, io, json, subprocess, configparser, uuid, requests, shelve, pystray
 import multiprocessing
-from PIL import Image  
-import tkinter as tk
+from PIL import Image
+try:  
+  import tkinter as tk
+except:
+  import Tkinter as tk
+
 from pathlib import Path
 
 

@@ -17,7 +17,7 @@ AppUpdatesURL=https://emood.com.ar/
 DefaultDirName={pf}\Emood
 DefaultGroupName=Emood
 OutputBaseFilename=setup
-SetupIconFile=C:\Users\frank\Documents\emood\emood\build\EmoodWin3\src\logo.ico
+SetupIconFile=C:\Users\frank\Documents\emood\emood\build\EmoodWin\src\logo.ico
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
@@ -31,8 +31,8 @@ Name: "{app}\"; Permissions: everyone-full
 Name: "{app}\src\"; Permissions: everyone-full
 
 [Files]
-Source: "C:\Users\frank\Documents\emood\emood\build\EmoodWin3\emood.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\frank\Documents\emood\emood\build\EmoodWin3\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\frank\Documents\emood\emood\build\EmoodWin\emood.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\frank\Documents\emood\emood\build\EmoodWin\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

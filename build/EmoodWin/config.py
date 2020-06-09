@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-version = "0.22"
+version = "0.25"
 
 # IMPORTS
 # IMPORTS python -m pip install pillow tk image pywin32 pystray requests

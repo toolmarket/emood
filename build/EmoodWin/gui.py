@@ -79,7 +79,7 @@ def save_answer(window,score,inputValue,questionId="DefaultId",questionType="Def
         "department": datos["department"],
         "questionType": questionType,
     }
-    
+    print(new_data)
     unsentAnswers = datos['unsentAnswers']
     unsentAnswers.append(new_data)
     datos['unsentAnswers'] = unsentAnswers
@@ -155,6 +155,7 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
 
     # Second Step
     def show_input(main_text="default text",score=0):
+        global inputValue
         clear_grid(window)
         # score var
 
@@ -176,6 +177,7 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
             global inputValue
             #print(data.keycode)
             inputValue= textBox.get("1.0","end-1c").strip()
+            print(inputValue)
             if(data.keycode == 13): # Enter ahora envia el formulario.
                 save_answer(window,score,inputValue,questionId,questionType,questionTime) # inputValue, score
         

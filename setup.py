@@ -21,23 +21,13 @@ if sys.platform == "win32":
     base = "Win32GUI" # hides the console
     build_exe_options = {
         "packages": 
-    ["os","tkinter","sys","winerror","uuid","subprocess","importlib",
+    ["os","sys","tkinter","winerror","uuid","subprocess","importlib",
     "configparser","threading","pathlib","dbm","shelve","zipfile","io","json","requests",
-    "certifi","chardet","idna","pystray","six","urllib3","multiprocessing","image",
+    "certifi","chardet","idna","pystray","six","urllib3","multiprocessing",
     "win32event","win32api"], 
-        "excludes": ["django","scipy","numpy","PyQt5","llvmlite","notebook","babel","matplotlib","mkl","jupyter"],
-        "include_files": ["config.py","gui.py","fun.py","src","config.ini"],
+        "excludes": ["django"],
+        "include_files": ["config.py","gui.py","fun.py","src","config.ini","vendor"],
         'build_exe': './/build/EmoodWin/'
-    }
-
-    build_exe_options = {
-        "packages": 
-    ["os","tkinter","sys","uuid","subprocess","importlib",
-    "configparser","threading","pathlib","dbm","shelve","zipfile","io","json","multiprocessing"], 
-        "excludes": ["django","scipy","numpy","PyQt5","llvmlite","notebook","babel","matplotlib","mkl","jupyter"],
-        "include_files": ["config.py","gui.py","fun.py","src","vendor","config.ini"],
-        'build_exe': './/build/EmoodWin3/',
-        "optimize": 2
     }
 
 else:

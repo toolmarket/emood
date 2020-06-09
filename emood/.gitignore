@@ -1,7 +1,0 @@
-src/*.bak
-src/*.dat
-src/*.dir
-src/*.db
-*.db
-*.zip
-__pycache__*

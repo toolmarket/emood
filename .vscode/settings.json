@@ -2,5 +2,10 @@
     "git.ignoreLimitWarning": true,
     "restructuredtext.confPath": "${workspaceFolder}\\env\\Lib\\site-packages\\django\\urls",
     "restructuredtext.preview.sphinx.disabled": true,
+<<<<<<< HEAD
     "restructuredtext.linter.disabled": true
+=======
+    "restructuredtext.linter.disabled": true,
+    "python.pythonPath": "env\\Scripts\\python.exe"
+>>>>>>> c83441e991423e45bfaf3e9f0ed9cec745135236
 }

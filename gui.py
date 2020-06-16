@@ -113,8 +113,6 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
     neutral_img2 = tk.PhotoImage(file="src/neutral2.gif")
     smile_img2 = tk.PhotoImage(file="src/smile2.gif")
 
-    
-
     inputValue = ""
     if windows:
         mouse_pointer = "hand2"
@@ -158,6 +156,11 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
         global inputValue
         clear_grid(window)
         # score var
+
+        try:
+            inputValue
+        except:
+            inputValue = ""
 
         main_title = tk.Label(window, text = main_text, fg="#FFFFFF", font=('Sans', 25, 'bold'), background=background_color) # , anchor="center"
         main_title.grid(row=0,column=1,columnspan=12,pady=20,stick="WENS")  #cambie tipografia

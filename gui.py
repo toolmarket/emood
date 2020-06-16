@@ -113,8 +113,6 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
     neutral_img2 = tk.PhotoImage(file="src/neutral2.gif")
     smile_img2 = tk.PhotoImage(file="src/smile2.gif")
 
-    
-
     inputValue = ""
     if windows:
         mouse_pointer = "hand2"

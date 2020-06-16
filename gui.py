@@ -159,6 +159,11 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
         clear_grid(window)
         # score var
 
+        try:
+            inputValue
+        except:
+            inputValue = ""
+
         main_title = tk.Label(window, text = main_text, fg="#FFFFFF", font=('Sans', 25, 'bold'), background=background_color) # , anchor="center"
         main_title.grid(row=0,column=1,columnspan=12,pady=20,stick="WENS")  #cambie tipografia
 

@@ -10,21 +10,24 @@ from cx_Freeze import setup, Executable
 #build_exe_options = {}
 
 
-import shutil
 
-
-dirname = './/build/EmoodWin/'
-try:
-    shutil.rmtree(dirname, ignore_errors=True)
-except Exception as e:
-    print(e)
-    var = input()
 
 # GUI applications require a different base on Windows (the default is for a
 # console application).
 
 
 if sys.platform == "win32":
+    import shutil
+
+
+    dirname = './/build/EmoodWin/'
+    try:
+        shutil.rmtree(dirname, ignore_errors=True)
+    except Exception as e:
+        print(e)
+        var = input()
+
+
     base = "Win32GUI" # hides the console
     build_exe_options = {
         "packages": 

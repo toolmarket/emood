@@ -8,7 +8,7 @@
 AppId={{AE2FFB4F-8579-4037-89CD-E1ADD6373A05}
 ;SignTool=signtool $f
 AppName=Emood
-AppVersion=0.2
+AppVersion=0.25
 ;AppVerName=Emood Demo 0.2
 AppPublisher=Custom Group
 AppPublisherURL=https://emood.com.ar/

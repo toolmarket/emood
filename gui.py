@@ -79,7 +79,7 @@ def save_answer(window,score,inputValue,questionId="DefaultId",questionType="Def
         "department": datos["department"],
         "questionType": questionType,
     }
-    
+    print(new_data)
     unsentAnswers = datos['unsentAnswers']
     unsentAnswers.append(new_data)
     datos['unsentAnswers'] = unsentAnswers
@@ -112,8 +112,6 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
     sad_img2 = tk.PhotoImage(file="src/sad2.gif")
     neutral_img2 = tk.PhotoImage(file="src/neutral2.gif")
     smile_img2 = tk.PhotoImage(file="src/smile2.gif")
-
-    
 
     inputValue = ""
     if windows:
@@ -155,8 +153,14 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
 
     # Second Step
     def show_input(main_text="default text",score=0):
+        global inputValue
         clear_grid(window)
         # score var
+
+        try:
+            inputValue
+        except:
+            inputValue = ""
 
         main_title = tk.Label(window, text = main_text, fg="#FFFFFF", font=('Sans', 25, 'bold'), background=background_color) # , anchor="center"
         main_title.grid(row=0,column=1,columnspan=12,pady=20,stick="WENS")  #cambie tipografia
@@ -176,6 +180,7 @@ def smiles(main_text="¿CÓMO TE SENTÍS?",questionId="DefaultId"): #questionID,
             global inputValue
             #print(data.keycode)
             inputValue= textBox.get("1.0","end-1c").strip()
+            print(inputValue)
             if(data.keycode == 13): # Enter ahora envia el formulario.
                 save_answer(window,score,inputValue,questionId,questionType,questionTime) # inputValue, score
         

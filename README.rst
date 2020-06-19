@@ -82,3 +82,6 @@ chmod +x Test.command
 
 Linux & Mac:
 nohup emood.py &
+
+
+https://stackoverflow.com/questions/693952/how-to-compile-for-os-x-in-linux-or-windows

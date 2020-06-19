@@ -6,6 +6,10 @@
     "restructuredtext.linter.disabled": true
 =======
     "restructuredtext.linter.disabled": true,
+<<<<<<< HEAD
+    "python.pythonPath": "/usr/local/bin/python3"
+=======
     "python.pythonPath": "env\\Scripts\\python.exe"
 >>>>>>> c83441e991423e45bfaf3e9f0ed9cec745135236
+>>>>>>> edfb6408007810fca5a5ef6cb706d492ce43f798
 }

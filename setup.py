@@ -10,8 +10,15 @@ from cx_Freeze import setup, Executable
 #build_exe_options = {}
 
 
+import shutil
 
 
+dirname = './/build/EmoodWin/'
+try:
+    shutil.rmtree(dirname, ignore_errors=True)
+except Exception as e:
+    print(e)
+    var = input()
 
 # GUI applications require a different base on Windows (the default is for a
 # console application).
@@ -27,7 +34,7 @@ if sys.platform == "win32":
     "win32event","win32api"], 
         "excludes": ["django"],
         "include_files": ["config.py","gui.py","fun.py","src","config.ini","vendor"],
-        'build_exe': './/build/EmoodWin/'
+        'build_exe': dirname
     }
 
 else:

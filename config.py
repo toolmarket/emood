@@ -11,6 +11,7 @@ import os
 import sys
 
 # Add vendor directory to module search path
+# Is actually looking for tkinter here:
 parent_dir = os.path.abspath(os.path.dirname(__file__))
 vendor_dir = os.path.join(parent_dir, 'vendor')
 sys.path.append(vendor_dir)
@@ -21,7 +22,10 @@ from PIL import Image
 try:  
   import tkinter as tk
 except:
-  import Tkinter as tk
+  try:
+    import Tkinter as tk
+  except:
+    import tk
 
 from pathlib import Path
 

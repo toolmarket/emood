@@ -21,7 +21,10 @@ from PIL import Image
 try:  
   import tkinter as tk
 except:
-  import Tkinter as tk
+  try:
+    import Tkinter as tk
+  except:
+    import tk
 
 from pathlib import Path
 

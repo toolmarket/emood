@@ -31,7 +31,7 @@ if sys.platform == "win32":
     base = "Win32GUI" # hides the console
     build_exe_options = {
         "packages": 
-    ["os","sys","tkinter","winerror","uuid","subprocess","importlib",
+    ["os","sys","winerror","uuid","subprocess","importlib",
     "configparser","threading","pathlib","dbm","shelve","zipfile","io","json","requests",
     "certifi","chardet","idna","pystray","six","urllib3","multiprocessing",
     "win32event","win32api"], 

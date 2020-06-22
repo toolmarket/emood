@@ -34,7 +34,7 @@ if sys.platform == "win32":
     ["os","sys","winerror","uuid","subprocess","importlib",
     "configparser","threading","pathlib","dbm","shelve","zipfile","io","json","requests",
     "certifi","chardet","idna","pystray","six","urllib3","multiprocessing",
-    "win32event","win32api"], 
+    "win32event","win32api","tkinter"], 
         "excludes": ["django"],
         "include_files": ["config.py","gui.py","fun.py","src","config.ini","vendor"],
         'build_exe': dirname

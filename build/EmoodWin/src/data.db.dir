@@ -4,5 +4,5 @@
 'company', (1536, 20)
 'show_smiles', (2048, 21)
 'userId', (2560, 74)
-'questions_answered', (3072, 54)
-'unsentAnswers', (4096, 6)
+'questions_answered', (3072, 10)
+'unsentAnswers', (3584, 6)
